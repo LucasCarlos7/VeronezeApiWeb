@@ -24,7 +24,6 @@ public class ProdutoService {
         ProdutoEntity produtoAtualizado = getProdutoId(produtoId);
 
         produtoAtualizado.setNome(produtoRequest.getNome());
-        produtoAtualizado.setQuantidade(produtoRequest.getQuantidade());
         produtoAtualizado.setPreco(produtoRequest.getPreco());
 
         produtoRepository.save(produtoAtualizado);

@@ -1,5 +1,6 @@
 package com.api.veroneze.data.entity;
 
+import com.api.veroneze.data.entity.enums.TipoProdutoEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -15,14 +16,29 @@ import java.util.Date;
 public class ProdutoEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
-    private String tipoProduto;
-    private double quantidade;
+    private Integer tipoProduto;
     private double preco;
     private Date dataCriacao;
     private Date dataAtualizacao;
+
+    //Construtor
+
+    public ProdutoEntity() {
+    }
+
+    public ProdutoEntity(Date dataAtualizacao, Date dataCriacao, Integer id, String nome, double preco, TipoProdutoEnum tipoProduto) {
+        this.dataAtualizacao = dataAtualizacao;
+        this.dataCriacao = dataCriacao;
+        this.id = id;
+        this.nome = nome;
+        this.preco = preco;
+        setTipoProduto(tipoProduto);
+    }
+
+    //Getters e Setters
 
     public Integer getId() {
         return id;
@@ -40,20 +56,14 @@ public class ProdutoEntity {
         this.nome = nome;
     }
 
-    public String getTipoProduto() {
-        return tipoProduto;
+    public TipoProdutoEnum getTipoProduto() {
+        return TipoProdutoEnum.valueOf(tipoProduto);
     }
 
-    public void setTipoProduto(String tipoProduto) {
-        this.tipoProduto = tipoProduto;
-    }
-
-    public double getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(double quantidade) {
-        this.quantidade = quantidade;
+    public void setTipoProduto(TipoProdutoEnum tipoProduto) {
+        if (tipoProduto != null) {
+            this.tipoProduto = tipoProduto.getCode();
+        }
     }
 
     public double getPreco() {

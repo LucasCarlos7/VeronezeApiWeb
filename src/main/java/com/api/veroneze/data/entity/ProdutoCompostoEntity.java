@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "ProdutoComposto")
 public class ProdutoCompostoEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @OneToOne
@@ -17,6 +17,20 @@ public class ProdutoCompostoEntity {
     @JoinColumn(name = "produto_secundario_id")
     private ProdutoEntity produtoSecundarioId;
     private double proporcao;
+
+    //Construtor
+
+    public ProdutoCompostoEntity() {
+    }
+
+    public ProdutoCompostoEntity(Integer id, ProdutoEntity produtoPrimarioId, ProdutoEntity produtoSecundarioId, double proporcao) {
+        this.id = id;
+        this.produtoPrimarioId = produtoPrimarioId;
+        this.produtoSecundarioId = produtoSecundarioId;
+        this.proporcao = proporcao;
+    }
+
+    //Getters e Setters
 
     public Integer getId() {
         return id;
