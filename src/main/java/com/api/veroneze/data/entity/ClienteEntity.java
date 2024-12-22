@@ -15,8 +15,7 @@ public class ClienteEntity {
 
     private String nome;
     private Integer tipoPessoa;
-    private String cnpj;
-    private String cpf;
+    private String cnpj_cpf;
     private String telefone;
     private String email;
     private String cep;
@@ -31,11 +30,10 @@ public class ClienteEntity {
     public ClienteEntity() {
     }
 
-    public ClienteEntity(int id, String nome, TipoPessoaEnum tipoPessoa, String cnpj, String cpf, String telefone, String email, String cep, String endereco, String bairro, String numeroEndereco, Date dataCriacao, Date dataAtualizacao) {
+    public ClienteEntity(int id, String nome, TipoPessoaEnum tipoPessoa, String cnpj_cpf, String telefone, String email, String cep, String endereco, String bairro, String numeroEndereco, Date dataCriacao, Date dataAtualizacao) {
         this.id = id;
         this.nome = nome;
-        this.cnpj = cnpj;
-        this.cpf = cpf;
+        this.cnpj_cpf = cnpj_cpf;
         this.telefone = telefone;
         this.email = email;
         this.cep = cep;
@@ -76,20 +74,12 @@ public class ClienteEntity {
         }
     }
 
-    public String getCnpj() {
-        return cnpj;
+    public String getCnpj_cpf() {
+        return cnpj_cpf;
     }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setCnpj_cpf(String cnpj_cpf) {
+        this.cnpj_cpf = cnpj_cpf;
     }
 
     public String getTelefone() {

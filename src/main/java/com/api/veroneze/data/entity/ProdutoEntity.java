@@ -1,18 +1,17 @@
 package com.api.veroneze.data.entity;
 
 import com.api.veroneze.data.entity.enums.TipoProdutoEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-@Data
-@Getter
-@Setter
+
 @Entity
-@Table(name = "Produto")
+@Table(name = "produto")
 public class ProdutoEntity {
 
     @Id
@@ -21,8 +20,17 @@ public class ProdutoEntity {
     private String nome;
     private Integer tipoProduto;
     private double preco;
+
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dataCriacao;
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dataAtualizacao;
+
+    @JsonIgnore
+    @OneToMany
+    private List<ProdutoCompostoEntity> produtoComposto = new ArrayList<>();
 
     //Construtor
 

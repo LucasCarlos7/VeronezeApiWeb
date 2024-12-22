@@ -14,6 +14,8 @@ public class FuncionarioEntity {
     private int id;
 
     private String nome;
+    private String login;
+    private String senha;
     private Integer cargo ;
     private String cpf;
     private String telefone;

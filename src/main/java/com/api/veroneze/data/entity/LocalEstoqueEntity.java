@@ -14,6 +14,17 @@ public class LocalEstoqueEntity {
     private String nome;
     private Date dataAtualizacao;
 
+    //Contrutor
+
+    public LocalEstoqueEntity() {
+    }
+
+    public LocalEstoqueEntity(int id, String nome, Date dataAtualizacao) {
+        this.id = id;
+        this.nome = nome;
+        this.dataAtualizacao = dataAtualizacao;
+    }
+
     //Getters e Setters
 
     public int getId() {
