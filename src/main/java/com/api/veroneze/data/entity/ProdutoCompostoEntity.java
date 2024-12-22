@@ -9,13 +9,10 @@ public class ProdutoCompostoEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne
-    @JoinColumn(name = "produto_primario_id")
-    private ProdutoEntity produtoPrimarioId;
+    @ManyToOne
+    @JoinColumn(name = "produto_composto_id")
+    private ProdutoEntity produtoCompostoId;
 
-    @OneToOne
-    @JoinColumn(name = "produto_secundario_id")
-    private ProdutoEntity produtoSecundarioId;
     private double proporcao;
 
     //Construtor
@@ -25,8 +22,8 @@ public class ProdutoCompostoEntity {
 
     public ProdutoCompostoEntity(Integer id, ProdutoEntity produtoPrimarioId, ProdutoEntity produtoSecundarioId, double proporcao) {
         this.id = id;
-        this.produtoPrimarioId = produtoPrimarioId;
-        this.produtoSecundarioId = produtoSecundarioId;
+       // this.produtoPrimarioId = produtoPrimarioId;
+       // this.produtoSecundarioId = produtoSecundarioId;
         this.proporcao = proporcao;
     }
 
@@ -38,22 +35,6 @@ public class ProdutoCompostoEntity {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public ProdutoEntity getProdutoPrimarioId() {
-        return produtoPrimarioId;
-    }
-
-    public void setProdutoPrimarioId(ProdutoEntity produtoPrimarioId) {
-        this.produtoPrimarioId = produtoPrimarioId;
-    }
-
-    public ProdutoEntity getProdutoSecundarioId() {
-        return produtoSecundarioId;
-    }
-
-    public void setProdutoSecundarioId(ProdutoEntity produtoSecundarioId) {
-        this.produtoSecundarioId = produtoSecundarioId;
     }
 
     public double getProporcao() {

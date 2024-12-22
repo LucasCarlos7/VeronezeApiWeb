@@ -1,6 +1,7 @@
 package com.api.veroneze.controller;
 
 import com.api.veroneze.data.entity.ProdutoEntity;
+import com.api.veroneze.data.entity.dto.ProdutoRequestDTO;
 import com.api.veroneze.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,19 @@ public class ProdutoController {
     @Autowired
     ProdutoService produtoService;
 
+    @PostMapping("/adicionar")
+    public ResponseEntity<ProdutoEntity> addProduto(@RequestBody ProdutoRequestDTO produto) {
+        var novoProduto = produtoService.salvarProduto(produto);
+        return new ResponseEntity<>(novoProduto, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/atualizar/{id}")
+    public ResponseEntity<ProdutoEntity> atualizarProduto(@PathVariable Integer id, @RequestBody ProdutoEntity produto) {
+        var produtoAtualizado = produtoService.atualizarProduto(id, produto);
+
+        return new ResponseEntity<>(produtoAtualizado, HttpStatus.OK);
+    }
+
     @GetMapping("/listar")
     public ResponseEntity<List> getAllProduto() {
         List<ProdutoEntity> produtos = produtoService.listarTodosProdutos();
@@ -25,22 +39,9 @@ public class ProdutoController {
 
     @GetMapping("/pesquisar/{id}")
     public ResponseEntity<ProdutoEntity> getProdutoById(@PathVariable Integer id) {
-        ProdutoEntity produto = produtoService.getProdutoId(id);
+        ProdutoEntity produto = produtoService.listarProdutoId(id);
 
         return new ResponseEntity<>(produto, HttpStatus.OK);
-    }
-
-    @PostMapping("/adicionar")
-    public ResponseEntity<ProdutoEntity> addProduto(@RequestBody ProdutoEntity produto) {
-        var novoProduto = produtoService.criarProduto(produto);
-        return new ResponseEntity<>(novoProduto, HttpStatus.CREATED);
-    }
-
-    @PutMapping("/atualizar/{id}")
-    public ResponseEntity<ProdutoEntity> atualizarProduto(@PathVariable Integer id, @RequestBody ProdutoEntity produto) {
-        var produtoAtualizado = produtoService.atualizarProduto(id, produto);
-
-        return new ResponseEntity<>(produtoAtualizado, HttpStatus.OK);
     }
 
     @DeleteMapping("/deletar/{id}")
