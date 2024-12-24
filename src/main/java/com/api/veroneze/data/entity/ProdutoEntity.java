@@ -4,6 +4,10 @@ import com.api.veroneze.data.entity.enums.TipoProdutoEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,20 +21,22 @@ public class ProdutoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @NotBlank
+    @Size(min = 5, message = "Informe ao menos 5 caracteres para o campo Nome")
     private String nome;
+
+    @NotNull(message = "TipoProduto não pode ser vazio.")
     private Integer tipoProduto;
     private double preco;
 
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dataCriacao;
+
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Date dataAtualizacao;
-
-    @JsonIgnore
-    @OneToMany
-    private List<ProdutoCompostoEntity> produtoComposto = new ArrayList<>();
+    private Date dataAtualizacao;;
 
     //Construtor
 

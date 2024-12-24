@@ -3,6 +3,7 @@ package com.api.veroneze.controller;
 import com.api.veroneze.data.entity.ProdutoEntity;
 import com.api.veroneze.data.entity.dto.ProdutoRequestDTO;
 import com.api.veroneze.service.ProdutoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +19,13 @@ public class ProdutoController {
     ProdutoService produtoService;
 
     @PostMapping("/adicionar")
-    public ResponseEntity<ProdutoEntity> addProduto(@RequestBody ProdutoRequestDTO produto) {
+    public ResponseEntity<ProdutoEntity> addProduto(@Valid @RequestBody ProdutoRequestDTO produto) {
         var novoProduto = produtoService.salvarProduto(produto);
         return new ResponseEntity<>(novoProduto, HttpStatus.CREATED);
     }
 
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<ProdutoEntity> atualizarProduto(@PathVariable Integer id, @RequestBody ProdutoEntity produto) {
+    public ResponseEntity<ProdutoEntity> atualizarProduto(@PathVariable Integer id, @RequestBody ProdutoRequestDTO produto) {
         var produtoAtualizado = produtoService.atualizarProduto(id, produto);
 
         return new ResponseEntity<>(produtoAtualizado, HttpStatus.OK);
@@ -48,7 +49,7 @@ public class ProdutoController {
     public ResponseEntity deletarProduto(@PathVariable Integer id) {
         produtoService.deletarProduto(id);
 
-        return new ResponseEntity(HttpStatus.NOT_FOUND);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }
 
