@@ -1,5 +1,6 @@
 package com.api.veroneze.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -10,8 +11,13 @@ public class LocalEstoqueEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String nome;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private Date dataCriacao;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dataAtualizacao;
 
     //Contrutor
@@ -19,19 +25,20 @@ public class LocalEstoqueEntity {
     public LocalEstoqueEntity() {
     }
 
-    public LocalEstoqueEntity(int id, String nome, Date dataAtualizacao) {
+    public LocalEstoqueEntity(Integer id, String nome, Date dataCriacao, Date dataAtualizacao) {
         this.id = id;
         this.nome = nome;
+        this.dataCriacao = dataCriacao;
         this.dataAtualizacao = dataAtualizacao;
     }
 
     //Getters e Setters
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -41,6 +48,14 @@ public class LocalEstoqueEntity {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Date getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(Date dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     public Date getDataAtualizacao() {
