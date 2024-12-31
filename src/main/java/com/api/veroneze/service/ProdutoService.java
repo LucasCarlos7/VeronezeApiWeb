@@ -4,7 +4,6 @@ import com.api.veroneze.data.entity.ProdutoEntity;
 import com.api.veroneze.data.entity.dto.ProdutoRequestDTO;
 import com.api.veroneze.data.inteface.ProdutoRepository;
 import com.api.veroneze.exception.ResourceNotFoundException;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +21,7 @@ public class ProdutoService {
 
         ProdutoEntity produtoEntity = new ProdutoEntity();
 
-        produtoEntity.setNome(produtoRequest.nome());
+        produtoEntity.setNome(produtoRequest.nome().toUpperCase());
         produtoEntity.setTipoProduto(produtoRequest.tipoProduto());
         produtoEntity.setPreco(produtoRequest.preco());
         produtoEntity.setDataCriacao(new Date());
@@ -34,7 +33,7 @@ public class ProdutoService {
 
         ProdutoEntity produtoAtualizado = listarProdutoId(produtoId);
 
-        produtoAtualizado.setNome(produtoRequest.nome());
+        produtoAtualizado.setNome(produtoRequest.nome().toUpperCase());
         produtoAtualizado.setTipoProduto(produtoRequest.tipoProduto());
         produtoAtualizado.setPreco(produtoRequest.preco());
         produtoAtualizado.setDataAtualizacao(new Date());
@@ -55,5 +54,10 @@ public class ProdutoService {
         ProdutoEntity produtoDeletado = listarProdutoId(produtoId);
 
         produtoRepository.deleteById(produtoDeletado.getId());
+    }
+
+    public Integer getNextId() {
+        Integer lastId = produtoRepository.findLastId();
+        return (lastId != null) ? lastId + 1 : 1;
     }
 }

@@ -32,7 +32,7 @@ public class ProdutoController {
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<List> getAllProduto() {
+    public ResponseEntity<List> getAllProdutos() {
         List<ProdutoEntity> produtos = produtoService.listarTodosProdutos();
 
         return new ResponseEntity<>(produtos, HttpStatus.OK);
@@ -50,6 +50,13 @@ public class ProdutoController {
         produtoService.deletarProduto(id);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/next-id")
+    public ResponseEntity<Integer> getNextId() {
+        Integer nextId = produtoService.getNextId();
+
+        return ResponseEntity.ok(nextId);
     }
 }
 
