@@ -2,6 +2,12 @@ package com.api.veroneze.data.entity;
 
 import com.api.veroneze.data.entity.enums.TipoPessoaEnum;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import org.hibernate.validator.constraints.br.CNPJ;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.Date;
 
@@ -11,13 +17,26 @@ public class FornecedorEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
+    @NotBlank(message = "Nome obrigatório")
+    @Size(min = 10, message = "Informe ao menos 10 caracteres para o campo Nome.")
     private String nome;
+
+    @NotNull(message = "TipoPessoa obrigatório")
     private Integer tipoPessoa;
+
+    @CNPJ(message = "CNPJ inválido")
     private String cnpj;
+
+    @CPF(message = "CPF inválido")
+    private String cpf;
     private String inscricaoEstadual;
+
+    @NotBlank(message = "Telefone obrigatório")
     private String telefone;
+
+    @Email(message = "Email inválido")
     private String email;
     private String cep;
     private String endereco;
@@ -28,14 +47,15 @@ public class FornecedorEntity {
 
     // Construtor
 
-
     public FornecedorEntity() {
     }
 
-    public FornecedorEntity(int id, String nome, TipoPessoaEnum tipoPessoa, String cnpj, String inscricaoEstadual, String telefone, String email, String cep, String endereco, String bairro, String numeroEndereco, Date dataCriacao, Date dataAtualizacao) {
+    public FornecedorEntity(Integer id, String nome, TipoPessoaEnum tipoPessoa, String cnpj, String cpf, String inscricaoEstadual, String telefone, String email, String cep, String endereco, String bairro, String numeroEndereco, Date dataCriacao, Date dataAtualizacao) {
         this.id = id;
         this.nome = nome;
+        setTipoPessoa(tipoPessoa);
         this.cnpj = cnpj;
+        this.cpf = cpf;
         this.inscricaoEstadual = inscricaoEstadual;
         this.telefone = telefone;
         this.email = email;
@@ -45,17 +65,16 @@ public class FornecedorEntity {
         this.numeroEndereco = numeroEndereco;
         this.dataCriacao = dataCriacao;
         this.dataAtualizacao = dataAtualizacao;
-        setTipoPessoa(tipoPessoa);
     }
 
     // Getters e Setters
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -75,6 +94,14 @@ public class FornecedorEntity {
         if (tipoPessoa != null) {
             this.tipoPessoa = tipoPessoa.getCode();
         }
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getCnpj() {
