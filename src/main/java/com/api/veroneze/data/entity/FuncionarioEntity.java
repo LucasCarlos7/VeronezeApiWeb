@@ -1,7 +1,13 @@
 package com.api.veroneze.data.entity;
 
 import com.api.veroneze.data.entity.enums.CargoEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.Date;
 
@@ -11,20 +17,40 @@ public class FuncionarioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
+    @NotBlank(message = "Nome obrigatório")
+    @Size(min = 5, message = "Informe ao menos 5 caracteres para o campo Nome.")
     private String nome;
+
+    @NotBlank(message = "Login obrigatório")
+    @Size(min = 5, message = "Informe ao menos 5 caracteres para o campo Login.")
     private String login;
+
+    @NotBlank
+    @NotNull
     private String senha;
-    private Integer cargo ;
+
+    @NotNull(message = "Cargo obrigatório")
+    private Integer cargo;
+
+    @CPF(message = "CPF inválido")
     private String cpf;
+
+    @NotBlank(message = "Telefone obrigatório")
     private String telefone;
+
+    @Email(message = "Email inválido")
     private String email;
     private String cep;
     private String endereco;
     private String bairro;
-    private String numeroEnredeco;
+    private String numeroEndereco;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dataCriacao;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dataAtualizacao;
 
     //Construtor
@@ -32,28 +58,30 @@ public class FuncionarioEntity {
     public FuncionarioEntity() {
     }
 
-    public FuncionarioEntity(String bairro, CargoEnum cargo, String cep, String cpf, Date dataAtualizacao, Date dataCriacao, String email, String endereco, int id, String nome, String numeroEnredeco, String telefone) {
-        this.bairro = bairro;
-        this.cep = cep;
-        this.cpf = cpf;
-        this.dataAtualizacao = dataAtualizacao;
-        this.dataCriacao = dataCriacao;
-        this.email = email;
-        this.endereco = endereco;
+    public FuncionarioEntity(Integer id, String nome, String login, String senha, CargoEnum cargo, String cpf, String telefone, String email, String cep, String endereco, String bairro, String numeroEndereco, Date dataCriacao, Date dataAtualizacao) {
         this.id = id;
         this.nome = nome;
-        this.numeroEnredeco = numeroEnredeco;
-        this.telefone = telefone;
+        this.login = login;
+        this.senha = senha;
         setCargo(cargo);
+        this.cpf = cpf;
+        this.telefone = telefone;
+        this.email = email;
+        this.cep = cep;
+        this.endereco = endereco;
+        this.bairro = bairro;
+        this.numeroEndereco = numeroEndereco;
+        this.dataCriacao = dataCriacao;
+        this.dataAtualizacao = dataAtualizacao;
     }
 
     //Getters e Setters
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -63,6 +91,22 @@ public class FuncionarioEntity {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public CargoEnum getCargo() {
@@ -123,12 +167,12 @@ public class FuncionarioEntity {
         this.bairro = bairro;
     }
 
-    public String getNumeroEnredeco() {
-        return numeroEnredeco;
+    public String getNumeroEndereco() {
+        return numeroEndereco;
     }
 
-    public void setNumeroEnredeco(String numeroEnredeco) {
-        this.numeroEnredeco = numeroEnredeco;
+    public void setNumeroEndereco(String numeroEndereco) {
+        this.numeroEndereco = numeroEndereco;
     }
 
     public Date getDataCriacao() {
