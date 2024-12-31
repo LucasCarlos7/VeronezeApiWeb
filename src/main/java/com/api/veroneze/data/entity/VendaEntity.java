@@ -1,5 +1,6 @@
 package com.api.veroneze.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -15,6 +16,8 @@ public class VendaEntity {
     private int clienteId;
     private int funcionarioId;
     private int estoqueId;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dataVenda;
 
     //Construtor

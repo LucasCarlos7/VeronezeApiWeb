@@ -1,6 +1,7 @@
 package com.api.veroneze.data.entity;
 
 import com.api.veroneze.data.entity.enums.TipoPessoaEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -42,7 +43,11 @@ public class FornecedorEntity {
     private String endereco;
     private String bairro;
     private String numeroEndereco;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dataCriacao;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dataAtualizacao;
 
     // Construtor
