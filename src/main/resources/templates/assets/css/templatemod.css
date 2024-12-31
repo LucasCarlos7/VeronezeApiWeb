@@ -1,0 +1,132 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #000000;
+    color: white;
+    border:#22e733 1px
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(90deg, #000000, #22e733);
+    padding: 10px 20px;
+    color: white;
+  }
+  header .logo {
+    height: 75px;
+  }
+  
+  header h1 {
+    margin: 0;
+  }
+  
+  .back-button {
+    color: white;
+    text-decoration: none;
+    background: #000000;
+    padding: 5px 15px;
+    border-radius: 5px;
+  }
+  
+  .main-content {
+    display: flex;
+    flex: 1;
+  }
+  
+  .sidebar {
+    background-color: #000000;
+    width: 200px;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .sidebar .button {
+    display: block;
+    text-decoration: none;
+    text-align: left;
+    color: black;
+    background-color:  #22e733;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background 0.3s;
+  }
+  
+  .sidebar .button:hover {
+    background-color: #14a020;
+  }
+  
+  
+  .button {
+    margin-bottom: 10px;
+    padding: 10px;
+    background: #004080;
+    border: none;
+    color: white;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+ 
+  
+  .form {
+    flex: 1;
+    padding: 20px;
+    background-color: #000000;
+    background-size: cover;
+    border-radius: 10px;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  label {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  input[type="text"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+  }
+  
+  select {
+    padding: 10px;
+    font-size: 16px;
+    padding-left: 250px;
+    border-radius: 1px solid #ccc;
+  }
+  
+  option {
+    font-size: 14px;
+    padding: 5px;
+    margin: 2px;
+    border-radius: 1px solid #ddd;
+  }
+  
+  
+  
+  .row {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .row > div {
+    flex: 1;
+  }
+
+  
+  
