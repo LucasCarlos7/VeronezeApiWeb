@@ -8,6 +8,14 @@ CREATE TABLE produto (
     data_atualizacao DATE
 );
 
+CREATE TABLE produto_composto (
+  id int NOT NULL AUTO_INCREMENT,
+  id_produto_composto int NOT NULL,
+  id_produto int NOT NULL,
+  proporcao double NOT NULL,
+  PRIMARY KEY (id)
+);
+
 CREATE TABLE local_estoque (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(80) NOT NULL,
@@ -25,18 +33,13 @@ CREATE TABLE estoque (
     FOREIGN KEY (id_local_estoque) REFERENCES local_estoque(id)
 );
 
-CREATE TABLE produto_composto (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    id_produto_composto INT NOT NULL,
-    proporcao DOUBLE NOT NULL,
-    FOREIGN KEY (id_produto_composto) REFERENCES produto(id)
-);
+
 
 CREATE TABLE cliente (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(150) NOT NULL,
     tipo_pessoa INT NOT NULL,
-    cpf_cnpj VARCHAR(20) NOT NULL,
+    cnpj VARCHAR(20) NOT NULL,
     telefone VARCHAR(15),
     email VARCHAR(50),
     endereco TEXT,
@@ -50,7 +53,7 @@ CREATE TABLE fornecedor (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(150) NOT NULL,
     tipo_pessoa INT NOT NULL,
-    cpf_cnpj VARCHAR(20) NOT NULL,
+    cnpj VARCHAR(20) NOT NULL,
     inscricao_estadual VARCHAR(20),
     telefone VARCHAR(15),
     email VARCHAR(50),
