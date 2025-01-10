@@ -1,8 +1,12 @@
 package com.api.veroneze.service;
 
+import com.api.veroneze.data.entity.EstoqueEntity;
 import com.api.veroneze.data.entity.LocalEstoqueEntity;
+import com.api.veroneze.data.entity.ProdutoEntity;
 import com.api.veroneze.data.entity.dto.LocalEstoqueRequestDTO;
+import com.api.veroneze.data.inteface.EstoqueRepository;
 import com.api.veroneze.data.inteface.LocalEstoqueRepository;
+import com.api.veroneze.data.inteface.ProdutoRepository;
 import com.api.veroneze.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,19 +21,42 @@ public class LocalEstoqueService {
     @Autowired
     private LocalEstoqueRepository localEstoqueRepository;
 
+    @Autowired
+    private ProdutoRepository produtoRepository;
+
+    @Autowired
+    private EstoqueRepository estoqueRepository;
+
     public LocalEstoqueEntity salvarLocalEstoque(LocalEstoqueRequestDTO localEstoqueRequest) {
+
+        // Obtendo todos os produtos cadastrados
+        List<ProdutoEntity> produtos = produtoRepository.findAll();
 
         LocalEstoqueEntity localEstoqueEntity = new LocalEstoqueEntity();
 
         localEstoqueEntity.setNome(localEstoqueRequest.nome().toUpperCase());
         localEstoqueEntity.setDataCriacao(new Date());
 
-        return localEstoqueRepository.save(localEstoqueEntity);
+        localEstoqueRepository.save(localEstoqueEntity);
+
+        // Inserindo registros na tabela Estoque
+        for (ProdutoEntity produto : produtos) {
+            EstoqueEntity estoque = new EstoqueEntity();
+            estoque.setProdutoId(produto.getId());
+            estoque.setLocalEstoqueId(localEstoqueEntity.getId());
+            estoque.setMovimentoEntrada(0.0);
+            estoque.setMovimentoSaida(0.0);
+            estoque.setSaldoTotal(0.0);
+
+            estoqueRepository.save(estoque);
+        }
+
+        return localEstoqueEntity;
     }
 
     public LocalEstoqueEntity atualizarLocalEstoque(Integer localEstoqueId, LocalEstoqueRequestDTO localEstoqueRequest) {
 
-        LocalEstoqueEntity localEstoqueAtualizado = new LocalEstoqueEntity();
+        LocalEstoqueEntity localEstoqueAtualizado = listarLocalEstoqueId(localEstoqueId);
 
         localEstoqueAtualizado.setNome(localEstoqueRequest.nome().toUpperCase());
         localEstoqueAtualizado.setDataAtualizacao(new Date());

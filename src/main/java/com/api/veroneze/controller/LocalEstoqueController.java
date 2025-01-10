@@ -15,7 +15,7 @@ import java.util.List;
 public class LocalEstoqueController {
 
     @Autowired
-    LocalEstoqueService localEstoqueService;
+    private LocalEstoqueService localEstoqueService;
 
     @PostMapping("/adicionar")
     public ResponseEntity<LocalEstoqueEntity> addLocalEstoque(@RequestBody LocalEstoqueRequestDTO localEstoque) {
