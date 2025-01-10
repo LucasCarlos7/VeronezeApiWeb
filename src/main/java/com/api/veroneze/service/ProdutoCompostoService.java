@@ -16,11 +16,11 @@ import java.util.Optional;
 public class ProdutoCompostoService {
 
     @Autowired
-    ProdutoCompostoRepository produtoCompostoRepository;
+    private ProdutoCompostoRepository produtoCompostoRepository;
     @Autowired
-    ProdutoRepository produtoRepository;
+    private ProdutoRepository produtoRepository;
 
-    public ProdutoCompostoEntity salvarProdudoComposto(ProdutoCompostoRequestDTO produtoComposto) {
+    public ProdutoCompostoEntity salvarProdutoComposto(ProdutoCompostoRequestDTO produtoComposto) {
         ProdutoEntity novoProduto = produtoRepository.findById(produtoComposto.produtoId()).orElseThrow(()
                 -> new RuntimeException("Produto não encontrado"));
         ProdutoEntity novoProdutoComposto = produtoRepository.findById(produtoComposto.produtoCompostoId()).orElseThrow(()
@@ -64,5 +64,15 @@ public class ProdutoCompostoService {
         ProdutoCompostoEntity produtoDeletado = listarProdutoCompostoId(prodCompostoId);
 
         produtoCompostoRepository.deleteById(produtoDeletado.getId());
+    }
+
+    public List<ProdutoCompostoEntity> findByProdutoId(Integer produtoId) {
+        List<ProdutoCompostoEntity> produtosCompostos = produtoCompostoRepository.findByProdutoId(produtoId);
+
+        if (produtosCompostos == null) {
+            throw new RuntimeException("Produto composto não cadastrado!");
+        }
+
+        return produtosCompostos;
     }
 }

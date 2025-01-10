@@ -1,7 +1,6 @@
 package com.api.veroneze.controller;
 
 import com.api.veroneze.data.entity.ProdutoCompostoEntity;
-import com.api.veroneze.data.entity.ProdutoEntity;
 import com.api.veroneze.data.entity.dto.ProdutoCompostoRequestDTO;
 import com.api.veroneze.service.ProdutoCompostoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +15,11 @@ import java.util.List;
 public class ProdutoCompostoController {
 
     @Autowired
-    ProdutoCompostoService produtoCompostoService;
+    private ProdutoCompostoService produtoCompostoService;
 
     @PostMapping("/adicionar")
     public ResponseEntity<ProdutoCompostoEntity> addProdutoComposto(@RequestBody ProdutoCompostoRequestDTO produtoComposto) {
-        var novoProdutoComposto = produtoCompostoService.salvarProdudoComposto(produtoComposto);
+        var novoProdutoComposto = produtoCompostoService.salvarProdutoComposto(produtoComposto);
 
         return new ResponseEntity<>(novoProdutoComposto, HttpStatus.CREATED);
     }
