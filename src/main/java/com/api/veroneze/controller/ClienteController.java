@@ -17,7 +17,7 @@ import java.util.List;
 public class ClienteController {
 
     @Autowired
-    ClienteService clienteService;
+    private ClienteService clienteService;
 
     @PostMapping("/adicionar")
     public ResponseEntity<ClienteEntity> addCliente(@Valid @RequestBody ClienteRequestDTO clienteRequestDTO) {

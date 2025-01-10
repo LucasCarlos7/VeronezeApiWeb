@@ -14,13 +14,13 @@ import java.util.Optional;
 public class ClienteService {
 
     @Autowired
-    ClienteRepository clienteRepository;
+    private ClienteRepository clienteRepository;
 
     public ClienteEntity salvarCliente(ClienteRequestDTO clienteRequestDTO) {
 
         ClienteEntity clienteEntity = new ClienteEntity();
 
-        clienteEntity.setNome(clienteRequestDTO.nome());
+        clienteEntity.setNome(clienteRequestDTO.nome().toUpperCase());
         clienteEntity.setTipoPessoa(clienteRequestDTO.tipoPessoa());
         clienteEntity.setTelefone(clienteRequestDTO.telefone());
         clienteEntity.setEmail(clienteRequestDTO.email());
@@ -45,7 +45,7 @@ public class ClienteService {
 
         ClienteEntity clienteAtualizado = listarClienteId(clienteId);
 
-        clienteAtualizado.setNome(clienteRequestDTO.nome());
+        clienteAtualizado.setNome(clienteRequestDTO.nome().toUpperCase());
         clienteAtualizado.setTipoPessoa(clienteRequestDTO.tipoPessoa());
         clienteAtualizado.setTelefone(clienteRequestDTO.telefone());
         clienteAtualizado.setEmail(clienteRequestDTO.email());
