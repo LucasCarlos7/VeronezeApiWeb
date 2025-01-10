@@ -2,24 +2,23 @@ package com.api.veroneze.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
 
 @Entity
-@Table(name = "Estoque")
+@IdClass(EstoqueIdEntity.class)
+@Table(name = "estoque")
 public class EstoqueEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer produtoId;
 
-    private double movimentoEntrada;
-    private double movimentoSaida;
-    private double saldoTotal;
-
-    @NotNull
+    @Id
     private Integer localEstoqueId;
+
+    private Double movimentoEntrada;
+    private Double movimentoSaida;
+    private Double saldoTotal;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dataAtualizacao;
@@ -29,47 +28,23 @@ public class EstoqueEntity {
     public EstoqueEntity() {
     }
 
-    public EstoqueEntity(Integer id, double movimentoEntrada, double movimentoSaida, double saldoTotal, Integer localEstoqueId, Date dataAtualizacao) {
-        this.id = id;
+    public EstoqueEntity(Integer produtoId, Integer localEstoqueId, Double movimentoEntrada, Double movimentoSaida, Double saldoTotal, Date dataAtualizacao) {
+        this.produtoId = produtoId;
+        this.localEstoqueId = localEstoqueId;
         this.movimentoEntrada = movimentoEntrada;
         this.movimentoSaida = movimentoSaida;
         this.saldoTotal = saldoTotal;
-        this.localEstoqueId = localEstoqueId;
         this.dataAtualizacao = dataAtualizacao;
     }
 
     // Getters e Setters
 
-    public Integer getId() {
-        return id;
+    public Integer getProdutoId() {
+        return produtoId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public double getMovimentoEntrada() {
-        return movimentoEntrada;
-    }
-
-    public void setMovimentoEntrada(double movimentoEntrada) {
-        this.movimentoEntrada = movimentoEntrada;
-    }
-
-    public double getMovimentoSaida() {
-        return movimentoSaida;
-    }
-
-    public void setMovimentoSaida(double movimentoSaida) {
-        this.movimentoSaida = movimentoSaida;
-    }
-
-    public double getSaldoTotal() {
-        return saldoTotal;
-    }
-
-    public void setSaldoTotal(double saldoTotal) {
-        this.saldoTotal = saldoTotal;
+    public void setProdutoId(Integer produtoId) {
+        this.produtoId = produtoId;
     }
 
     public Integer getLocalEstoqueId() {
@@ -78,6 +53,30 @@ public class EstoqueEntity {
 
     public void setLocalEstoqueId(Integer localEstoqueId) {
         this.localEstoqueId = localEstoqueId;
+    }
+
+    public Double getMovimentoEntrada() {
+        return movimentoEntrada;
+    }
+
+    public void setMovimentoEntrada(Double movimentoEntrada) {
+        this.movimentoEntrada = movimentoEntrada;
+    }
+
+    public Double getMovimentoSaida() {
+        return movimentoSaida;
+    }
+
+    public void setMovimentoSaida(Double movimentoSaida) {
+        this.movimentoSaida = movimentoSaida;
+    }
+
+    public Double getSaldoTotal() {
+        return saldoTotal;
+    }
+
+    public void setSaldoTotal(Double saldoTotal) {
+        this.saldoTotal = saldoTotal;
     }
 
     public Date getDataAtualizacao() {
