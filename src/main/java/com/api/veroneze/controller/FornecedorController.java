@@ -16,7 +16,7 @@ import java.util.List;
 public class FornecedorController {
 
     @Autowired
-    FornecedorService fornecedorService;
+    private FornecedorService fornecedorService;
 
     @PostMapping("/adicionar")
     public ResponseEntity<FornecedorEntity> addFornecedor(@Valid @RequestBody FornecedorRequestDTO fornecedor) {

@@ -16,7 +16,7 @@ import java.util.List;
 public class FuncionarioController {
 
     @Autowired
-    FuncionarioService funcionarioService;
+    private FuncionarioService funcionarioService;
 
     @PostMapping("/adicionar")
     public ResponseEntity<FuncionarioEntity> addFuncionario(@Valid @RequestBody FuncionarioRequestDTO funcionarioRequestDTO) {

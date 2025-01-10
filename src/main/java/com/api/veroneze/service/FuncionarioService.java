@@ -14,7 +14,7 @@ import java.util.Optional;
 public class FuncionarioService {
 
     @Autowired
-    FuncionarioRepository funcionarioRepository;
+    private FuncionarioRepository funcionarioRepository;
 
     public FuncionarioEntity salvarFuncionario(FuncionarioRequestDTO funcionarioRequestDTO) {
 
