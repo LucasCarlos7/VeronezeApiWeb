@@ -36,7 +36,7 @@ public class ProdutoEntity {
 
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Date dataAtualizacao;;
+    private Date dataAtualizacao;
 
     //Construtor
 

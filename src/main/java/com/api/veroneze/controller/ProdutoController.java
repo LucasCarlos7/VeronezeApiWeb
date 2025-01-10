@@ -16,7 +16,7 @@ import java.util.List;
 public class ProdutoController {
 
     @Autowired
-    ProdutoService produtoService;
+    private ProdutoService produtoService;
 
     @PostMapping("/adicionar")
     public ResponseEntity<ProdutoEntity> addProduto(@Valid @RequestBody ProdutoRequestDTO produto) {

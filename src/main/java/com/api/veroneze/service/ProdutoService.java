@@ -1,11 +1,16 @@
 package com.api.veroneze.service;
 
+import com.api.veroneze.data.entity.EstoqueEntity;
+import com.api.veroneze.data.entity.LocalEstoqueEntity;
 import com.api.veroneze.data.entity.ProdutoEntity;
 import com.api.veroneze.data.entity.dto.ProdutoRequestDTO;
+import com.api.veroneze.data.inteface.EstoqueRepository;
+import com.api.veroneze.data.inteface.LocalEstoqueRepository;
 import com.api.veroneze.data.inteface.ProdutoRepository;
 import com.api.veroneze.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -15,9 +20,18 @@ import java.util.Optional;
 public class ProdutoService {
 
     @Autowired
-    ProdutoRepository produtoRepository;
+    private ProdutoRepository produtoRepository;
 
+    @Autowired
+    private LocalEstoqueRepository localEstoqueRepository;
+
+    @Autowired
+    private EstoqueRepository estoqueRepository;
+
+    @Transactional
     public ProdutoEntity salvarProduto(ProdutoRequestDTO produtoRequest) {
+
+        List<LocalEstoqueEntity> localEstoqueEntities = localEstoqueRepository.findAll();
 
         ProdutoEntity produtoEntity = new ProdutoEntity();
 
@@ -26,7 +40,25 @@ public class ProdutoService {
         produtoEntity.setPreco(produtoRequest.preco());
         produtoEntity.setDataCriacao(new Date());
 
-        return produtoRepository.save(produtoEntity);
+        produtoRepository.save(produtoEntity);
+
+        try {
+            for (LocalEstoqueEntity local : localEstoqueEntities) {
+                EstoqueEntity estoque = new EstoqueEntity();
+
+                estoque.setProdutoId(produtoEntity.getId());
+                estoque.setLocalEstoqueId(local.getId());
+                estoque.setMovimentoEntrada(0.0);
+                estoque.setMovimentoSaida(0.0);
+                estoque.setSaldoTotal(0.0);
+
+                estoqueRepository.save(estoque);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao cadastrar o produto.");
+        }
+
+        return produtoEntity;
     }
 
     public ProdutoEntity atualizarProduto(Integer produtoId, ProdutoRequestDTO produtoRequest) {
@@ -43,7 +75,7 @@ public class ProdutoService {
 
     public ProdutoEntity listarProdutoId(Integer produtoId) {
         Optional<ProdutoEntity> obj = produtoRepository.findById(produtoId);
-        return obj.orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado " + produtoId));
+        return obj.orElseThrow(() -> new ResourceNotFoundException("Produto ID: " + produtoId + " não encontrado!"));
     }
 
     public List<ProdutoEntity> listarTodosProdutos() {
