@@ -16,7 +16,7 @@ import java.util.List;
 public class MovimentoEstoqueController {
 
     @Autowired
-    MovimentoEstoqueService movimentoEstoqueService;
+    private MovimentoEstoqueService movimentoEstoqueService;
 
     @PostMapping("/adicionar")
     public ResponseEntity<MovimentoEstoqueEntity> addMovimentoEstoque(@Valid @RequestBody MovimentoEstoqueRequestDTO movimentoEstoqueRequest) {
@@ -26,8 +26,7 @@ public class MovimentoEstoqueController {
     }
 
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<MovimentoEstoqueEntity> atualizarMovimentoEstoque(@Valid @PathVariable Integer id,
-                                                                            @RequestBody MovimentoEstoqueRequestDTO movimentoEstoqueRequest) {
+    public ResponseEntity<MovimentoEstoqueEntity> atualizarMovimentoEstoque(@Valid @PathVariable Integer id, @RequestBody MovimentoEstoqueRequestDTO movimentoEstoqueRequest) {
 
         var movimentoEstoqueAtualizado = movimentoEstoqueService.atualizarMovimentoEstoque(id, movimentoEstoqueRequest);
 

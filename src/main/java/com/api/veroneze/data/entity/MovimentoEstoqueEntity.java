@@ -1,5 +1,6 @@
 package com.api.veroneze.data.entity;
 
+import com.api.veroneze.data.entity.enums.StatusOperacaoEnum;
 import com.api.veroneze.data.entity.enums.TipoOperacaoEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
@@ -15,7 +16,7 @@ public class MovimentoEstoqueEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer localEstoqueEntradaId;
+    private Integer localEstoqueId;
     private Integer localEstoqueSaidaId;
 
     @NotNull
@@ -26,25 +27,28 @@ public class MovimentoEstoqueEntity {
 
     @NotNull
     private Integer tipoOperacao;
-    private Integer status;
+    private Integer statusOperacao;
+
+    private Double valorOperacao;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dataOperacao;
 
     //Construtor
 
-
     public MovimentoEstoqueEntity() {
     }
 
-    public MovimentoEstoqueEntity(Integer id, Integer localEstoqueEntradaId, Integer localEstoqueSaidaId, Integer fornecedorId, Integer funcionarioId, TipoOperacaoEnum tipoOperacao, Integer status, Date dataOperacao) {
+    public MovimentoEstoqueEntity(Integer id, Integer localEstoqueId, Integer localEstoqueSaidaId, Integer fornecedorId,
+                                  Integer funcionarioId, TipoOperacaoEnum tipoOperacao, StatusOperacaoEnum statusOperacao, Double valorOperacao, Date dataOperacao) {
         this.id = id;
-        this.localEstoqueEntradaId = localEstoqueEntradaId;
+        this.localEstoqueId = localEstoqueId;
         this.localEstoqueSaidaId = localEstoqueSaidaId;
         this.fornecedorId = fornecedorId;
         this.funcionarioId = funcionarioId;
         setTipoOperacao(tipoOperacao);
-        this.status = status;
+        setStatusOperacao(statusOperacao);
+        this.valorOperacao = valorOperacao;
         this.dataOperacao = dataOperacao;
     }
 
@@ -58,12 +62,12 @@ public class MovimentoEstoqueEntity {
         this.id = id;
     }
 
-    public Integer getLocalEstoqueEntradaId() {
-        return localEstoqueEntradaId;
+    public Integer getLocalEstoqueId() {
+        return localEstoqueId;
     }
 
-    public void setLocalEstoqueEntradaId(Integer localEstoqueEntradaId) {
-        this.localEstoqueEntradaId = localEstoqueEntradaId;
+    public void setLocalEstoqueId(Integer localEstoqueId) {
+        this.localEstoqueId = localEstoqueId;
     }
 
     public Integer getLocalEstoqueSaidaId() {
@@ -100,12 +104,22 @@ public class MovimentoEstoqueEntity {
         }
     }
 
-    public Integer getStatus() {
-        return status;
+    public StatusOperacaoEnum getStatusOperacao() {
+        return StatusOperacaoEnum.valueOf(statusOperacao);
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setStatusOperacao(StatusOperacaoEnum statusOperacao) {
+        if (statusOperacao != null) {
+            this.statusOperacao = statusOperacao.getCode();
+        }
+    }
+
+    public Double getValorOperacao() {
+        return valorOperacao;
+    }
+
+    public void setValorOperacao(Double valorOperacao) {
+        this.valorOperacao = valorOperacao;
     }
 
     public Date getDataOperacao() {
