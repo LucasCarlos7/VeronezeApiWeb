@@ -8,12 +8,17 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Funcionario")
-public class FuncionarioEntity {
+public class FuncionarioEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -189,5 +194,52 @@ public class FuncionarioEntity {
 
     public void setDataAtualizacao(Date dataAtualizacao) {
         this.dataAtualizacao = dataAtualizacao;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (this.cargo == CargoEnum.DIRETORIA.getCode()) {
+            return List.of(
+                    new SimpleGrantedAuthority("ROLE_ADMIN"),
+                    new SimpleGrantedAuthority("ROLE_STAFF"),
+                    new SimpleGrantedAuthority("ROLE_USER"));
+        } else if (this.cargo == CargoEnum.GERENTE.getCode()) {
+            return List.of(
+                    new SimpleGrantedAuthority("ROLE_STAFF"),
+                    new SimpleGrantedAuthority("ROLE_USER"));
+        } else if (this.cargo == CargoEnum.ADMINISTRATIVO.getCode()) {
+            return List.of(
+                    new SimpleGrantedAuthority("ROLE_USER"));
+        } else return List.of(new SimpleGrantedAuthority("ROLE_GUEST"));
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

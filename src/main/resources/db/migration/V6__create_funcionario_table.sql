@@ -2,7 +2,7 @@ CREATE TABLE funcionario (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
     login VARCHAR(30) NOT NULL,
-    senha VARCHAR(30) NOT NULL,
+    senha TEXT NOT NULL,
     cargo INT NOT NULL,
     cpf VARCHAR(14),
     telefone VARCHAR(20),
