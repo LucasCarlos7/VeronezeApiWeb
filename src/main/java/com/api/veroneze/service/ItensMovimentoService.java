@@ -5,6 +5,7 @@ import com.api.veroneze.data.entity.MovimentoEstoqueEntity;
 import com.api.veroneze.data.entity.ProdutoCompostoEntity;
 import com.api.veroneze.data.entity.ProdutoEntity;
 import com.api.veroneze.data.entity.dto.ItensMovimentoRequestDTO;
+import com.api.veroneze.data.entity.enums.OperacaoEnum;
 import com.api.veroneze.data.entity.enums.StatusOperacaoEnum;
 import com.api.veroneze.data.entity.enums.TipoOperacaoEnum;
 import com.api.veroneze.data.inteface.ItensMovimentoRepository;
@@ -32,52 +33,55 @@ public class ItensMovimentoService {
     @Autowired
     private ProdutoService produtoService;
 
-    public ItensMovimentoEntity salvarItensMovimento(ItensMovimentoRequestDTO itensMovimentoRequest) {
+    public ItensMovimentoEntity salvarItensMovimento(ItensMovimentoRequestDTO itemMovimentoRequest) {
         // Instancia um ItensMovimentoEntity
-        ItensMovimentoEntity itensMovimentoEntity = new ItensMovimentoEntity();
+        ItensMovimentoEntity novoItemMovimento = new ItensMovimentoEntity();
         // Consulta o ProdutoEntity filtrando pelo ID
-        ProdutoEntity produto = produtoService.listarProdutoId(itensMovimentoRequest.produtoId());
+        ProdutoEntity produto = produtoService.listarProdutoId(itemMovimentoRequest.produtoId());
         // Lista todos os produtos compostos de receita para o produtoId informado
         List<ProdutoCompostoEntity> produtosCompostos = produtoCompostoService.findByProdutoId(produto.getId());
         //Busca o MovimentoEstoque
-        MovimentoEstoqueEntity movimentoEstoque = movimentoEstoqueService.listarMovimentoEstoqueId(itensMovimentoRequest.MovimentoEstoqueId());
+        MovimentoEstoqueEntity movimentoEstoque = movimentoEstoqueService.listarMovimentoEstoqueId(itemMovimentoRequest.MovimentoEstoqueId());
 
-        //Verifica se o status é diferente de 0
+        //Verifica se o status é igual a CONCLUIDO
         if (movimentoEstoque.getStatusOperacao().equals(StatusOperacaoEnum.CONCLUIDO)) {
             throw new RuntimeException("Operação não permitida para Movimento com status CONCLUÍDO.");
         }
 
-        itensMovimentoEntity.setProdutoId(itensMovimentoRequest.produtoId());
-        itensMovimentoEntity.setMovimentoEstoqueId(itensMovimentoRequest.MovimentoEstoqueId());
-        itensMovimentoEntity.setNomeProduto(produto.getNome());
-        itensMovimentoEntity.setValorUnitarioProduto(produto.getPreco());
-        itensMovimentoEntity.setQuantidade(itensMovimentoRequest.quantidade());
-        itensMovimentoEntity.setValorTotalProduto(produto.getPreco() * itensMovimentoRequest.quantidade());
-        itensMovimentoEntity.setOperacao('E');
-        itensMovimentoEntity.setProdutoPrimarioId(itensMovimentoRequest.produtoId());
+        novoItemMovimento.setProdutoId(itemMovimentoRequest.produtoId());
+        novoItemMovimento.setMovimentoEstoqueId(itemMovimentoRequest.MovimentoEstoqueId());
+        novoItemMovimento.setNomeProduto(produto.getNome());
+        novoItemMovimento.setValorUnitarioProduto(produto.getPreco());
+        novoItemMovimento.setQuantidade(itemMovimentoRequest.quantidade());
+        novoItemMovimento.setValorTotalProduto(produto.getPreco() * itemMovimentoRequest.quantidade());
+        novoItemMovimento.setOperacao(OperacaoEnum.ENTRADA);
+        novoItemMovimento.setProdutoPrimarioId(itemMovimentoRequest.produtoId());
 
-        itensMovimentoRepository.save(itensMovimentoEntity);
+        // Salva o novo item no movimento
+        itensMovimentoRepository.save(novoItemMovimento);
 
+        // Valida se o tipoOperação do movimento é diferente de ENTRADA
         if (!movimentoEstoque.getTipoOperacao().equals(TipoOperacaoEnum.ENTRADA)) {
 
+            // Percorre todos os ProdutosCompostos do ProdutoEntity e insere no movimento com a Operação = SAIDA
             for (ProdutoCompostoEntity produtos : produtosCompostos) {
                 ItensMovimentoEntity itensMovimentoComposto = new ItensMovimentoEntity();
 
                 ProdutoEntity produtoComposto = produtoService.listarProdutoId(produtos.getProdutoCompostoId());
 
                 itensMovimentoComposto.setProdutoId(produtoComposto.getId());
-                itensMovimentoComposto.setMovimentoEstoqueId(itensMovimentoRequest.MovimentoEstoqueId());
+                itensMovimentoComposto.setMovimentoEstoqueId(movimentoEstoque.getId());
                 itensMovimentoComposto.setNomeProduto(produtoComposto.getNome());
                 itensMovimentoComposto.setValorUnitarioProduto(produtoComposto.getPreco());
-                itensMovimentoComposto.setQuantidade(itensMovimentoRequest.quantidade() * produtos.getProporcao());
-                itensMovimentoComposto.setValorTotalProduto(produtoComposto.getPreco() * itensMovimentoRequest.quantidade());
-                itensMovimentoComposto.setOperacao('S');
+                itensMovimentoComposto.setQuantidade(itemMovimentoRequest.quantidade() * produtos.getProporcao());
+                itensMovimentoComposto.setValorTotalProduto(produtoComposto.getPreco() * itensMovimentoComposto.getQuantidade());
+                itensMovimentoComposto.setOperacao(OperacaoEnum.SAIDA);
                 itensMovimentoComposto.setProdutoPrimarioId(produtos.getProdutoId());
 
                 itensMovimentoRepository.save(itensMovimentoComposto);
             }
         }
-        return itensMovimentoEntity;
+        return novoItemMovimento;
     }
 
     public ItensMovimentoEntity listarItensMovimentoById(Integer itemId) {
@@ -93,13 +97,13 @@ public class ItensMovimentoService {
     }
 
     public List<ItensMovimentoEntity> findByMovimentoEstoqueId(Integer movimentoEstoqueId) {
-        List<ItensMovimentoEntity> objs = itensMovimentoRepository.findByMovimentoEstoqueId(movimentoEstoqueId);
+        List<ItensMovimentoEntity> itens = itensMovimentoRepository.findByMovimentoEstoqueId(movimentoEstoqueId);
 
-        if (objs.equals(null)) {
+        if (itens == null) {
             throw new RuntimeException("Item(ns) não encontrado.");
         }
 
-        return objs;
+        return itens;
     }
 
     public Double findValorTotalProdutos(Integer movimentoEstoqueId) {

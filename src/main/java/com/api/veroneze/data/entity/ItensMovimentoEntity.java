@@ -1,5 +1,6 @@
 package com.api.veroneze.data.entity;
 
+import com.api.veroneze.data.entity.enums.OperacaoEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -18,7 +19,7 @@ public class ItensMovimentoEntity {
     @NotNull
     private Integer produtoPrimarioId;
 
-    private Character operacao;
+    private Integer operacao;
     private String nomeProduto;
     private Double valorUnitarioProduto;
     private Double valorTotalProduto;
@@ -30,13 +31,13 @@ public class ItensMovimentoEntity {
     public ItensMovimentoEntity() {
     }
 
-    public ItensMovimentoEntity(Integer id, Integer produtoId, Integer movimentoEstoqueId, Integer produtoPrimarioId, Character operacao, String nomeProduto,
+    public ItensMovimentoEntity(Integer id, Integer produtoId, Integer movimentoEstoqueId, Integer produtoPrimarioId, OperacaoEnum operacao, String nomeProduto,
                                 Double valorUnitarioProduto, Double valorTotalProduto, Double quantidade) {
         this.id = id;
         this.produtoId = produtoId;
         this.movimentoEstoqueId = movimentoEstoqueId;
         this.produtoPrimarioId = produtoPrimarioId;
-        this.operacao = operacao;
+        setOperacao(operacao);
         this.nomeProduto = nomeProduto;
         this.valorUnitarioProduto = valorUnitarioProduto;
         this.valorTotalProduto = valorTotalProduto;
@@ -77,12 +78,14 @@ public class ItensMovimentoEntity {
         this.produtoPrimarioId = produtoPrimarioId;
     }
 
-    public Character getOperacao() {
-        return operacao;
+    public OperacaoEnum getOperacao() {
+        return OperacaoEnum.valueOf(operacao);
     }
 
-    public void setOperacao(Character operacao) {
-        this.operacao = operacao;
+    public void setOperacao(OperacaoEnum operacao) {
+        if (operacao != null) {
+            this.operacao = operacao.getCode();
+        }
     }
 
     public String getNomeProduto() {

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ItensMovimentoRepository extends JpaRepository<ItensMovimentoEntity, Integer> {
@@ -22,6 +23,6 @@ public interface ItensMovimentoRepository extends JpaRepository<ItensMovimentoEn
 
     // Calcula o valor total dos produtos filtrando pelo id do MovimentoEstoque e retornando a soma
     @Query("SELECT SUM(im.valorTotalProduto) FROM ItensMovimentoEntity im " +
-            "WHERE im.movimentoEstoqueId = :id AND im.operacao = 'E'")
+            "WHERE im.movimentoEstoqueId = :id AND im.operacao = 1")
     Double findValorTotalProdutos(@Param("id") Integer id);
 }

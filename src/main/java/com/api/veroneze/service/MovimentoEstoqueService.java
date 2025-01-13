@@ -1,9 +1,8 @@
 package com.api.veroneze.service;
 
-import com.api.veroneze.data.entity.EstoqueEntity;
-import com.api.veroneze.data.entity.ItensMovimentoEntity;
-import com.api.veroneze.data.entity.MovimentoEstoqueEntity;
+import com.api.veroneze.data.entity.*;
 import com.api.veroneze.data.entity.dto.MovimentoEstoqueRequestDTO;
+import com.api.veroneze.data.entity.enums.OperacaoEnum;
 import com.api.veroneze.data.entity.enums.StatusOperacaoEnum;
 import com.api.veroneze.data.entity.enums.TipoOperacaoEnum;
 import com.api.veroneze.data.inteface.EstoqueRepository;
@@ -33,18 +32,37 @@ public class MovimentoEstoqueService {
     @Autowired
     private EstoqueService estoqueService;
 
+    @Autowired
+    LocalEstoqueService localEstoqueService;
+
+    @Autowired
+    private FornecedorService fornecedorService;
+
+    @Autowired
+    private FuncionarioService funcionarioService;
+
     public MovimentoEstoqueEntity salvarMovimentoEstoque(MovimentoEstoqueRequestDTO movimentoEstoque) {
 
-        if (movimentoEstoque.localEstoqueId() == movimentoEstoque.localEstoqueSaidaId()) {
+        LocalEstoqueEntity localEstoqueEntrada = localEstoqueService.listarLocalEstoqueId(movimentoEstoque.localEstoqueId());
+        LocalEstoqueEntity localEstoqueSaida = null;
+
+        FornecedorEntity fornecedor = fornecedorService.listarFornecedorId(movimentoEstoque.fornecedorId());
+        FuncionarioEntity funcionario = funcionarioService.listarFuncionarioId(movimentoEstoque.funcionarioId());
+
+        if (movimentoEstoque.localEstoqueSaidaId() != null) {
+            localEstoqueSaida = localEstoqueService.listarLocalEstoqueId(movimentoEstoque.localEstoqueId());
+        }
+
+        if (localEstoqueEntrada == localEstoqueSaida) {
             new RuntimeException("Operação não permitida! Locais de Estoque iguais.");
         }
 
         MovimentoEstoqueEntity movimentoEstoqueEntity = new MovimentoEstoqueEntity();
 
-        movimentoEstoqueEntity.setLocalEstoqueId(movimentoEstoque.localEstoqueId());
-        movimentoEstoqueEntity.setLocalEstoqueSaidaId(movimentoEstoque.localEstoqueSaidaId());
-        movimentoEstoqueEntity.setFornecedorId(movimentoEstoque.fornecedorId());
-        movimentoEstoqueEntity.setFuncionarioId(movimentoEstoque.funcionarioId());
+        movimentoEstoqueEntity.setLocalEstoqueId(localEstoqueEntrada.getId());
+        movimentoEstoqueEntity.setLocalEstoqueSaidaId(localEstoqueSaida.getId());
+        movimentoEstoqueEntity.setFornecedorId(fornecedor.getId());
+        movimentoEstoqueEntity.setFuncionarioId(funcionario.getId());
         movimentoEstoqueEntity.setTipoOperacao(movimentoEstoque.tipoOperacao());
         movimentoEstoqueEntity.setStatusOperacao(StatusOperacaoEnum.INICIADO);
         movimentoEstoqueEntity.setValorOperacao(movimentoEstoque.valorOperacao());
@@ -60,10 +78,24 @@ public class MovimentoEstoqueService {
         // Consulta os valores totais dos produtos incluidos na MovimentoEstoque
         Double valorTotalProdutos = itensMovimentoService.findValorTotalProdutos(movimentoEstoqueAtualizado.getId());
 
-        movimentoEstoqueAtualizado.setLocalEstoqueId(movimentoEstoque.localEstoqueId());
-        movimentoEstoqueAtualizado.setLocalEstoqueSaidaId(movimentoEstoque.localEstoqueSaidaId());
-        movimentoEstoqueAtualizado.setFornecedorId(movimentoEstoque.fornecedorId());
-        movimentoEstoqueAtualizado.setFuncionarioId(movimentoEstoque.funcionarioId());
+        LocalEstoqueEntity localEstoqueEntrada = localEstoqueService.listarLocalEstoqueId(movimentoEstoque.localEstoqueId());
+        LocalEstoqueEntity localEstoqueSaida = null;
+
+        FornecedorEntity fornecedor = fornecedorService.listarFornecedorId(movimentoEstoque.fornecedorId());
+        FuncionarioEntity funcionario = funcionarioService.listarFuncionarioId(movimentoEstoque.funcionarioId());
+
+        if (movimentoEstoque.localEstoqueSaidaId() != null) {
+            localEstoqueSaida = localEstoqueService.listarLocalEstoqueId(movimentoEstoque.localEstoqueId());
+        }
+
+        if (localEstoqueEntrada == localEstoqueSaida) {
+            new RuntimeException("Operação não permitida! Locais de Estoque iguais.");
+        }
+
+        movimentoEstoqueAtualizado.setLocalEstoqueId(localEstoqueEntrada.getId());
+        movimentoEstoqueAtualizado.setLocalEstoqueSaidaId(localEstoqueSaida.getId());
+        movimentoEstoqueAtualizado.setFornecedorId(fornecedor.getId());
+        movimentoEstoqueAtualizado.setFuncionarioId(funcionario.getId());
         movimentoEstoqueAtualizado.setTipoOperacao(movimentoEstoque.tipoOperacao());
         movimentoEstoqueAtualizado.setStatusOperacao(movimentoEstoque.statusOperacao());
         movimentoEstoqueAtualizado.setValorOperacao(movimentoEstoque.valorOperacao());
@@ -160,7 +192,7 @@ public class MovimentoEstoqueService {
         } else if (movimentoEstoque.getTipoOperacao().equals(TipoOperacaoEnum.TRANSFERENCIA)) {
             for (ItensMovimentoEntity itens : itensMovimento) {
                 // Realiza a atualização de saldo no LocalEstoque Entrada
-                if (itens.getOperacao() == 'E') {
+                if (itens.getOperacao().equals(OperacaoEnum.ENTRADA)) {
                     // Consulta o Estoque em que será inserido o valor de Entrada, filtrando pelo LocalEstoqueId + ProdutoId
                     estoque = estoqueService.findBylocalEstoqueIdAndProdutoId(movimentoEstoque.getLocalEstoqueId(), itens.getProdutoId());
                     // Retorna o valor total de Entrada no estoque
@@ -234,7 +266,7 @@ public class MovimentoEstoqueService {
         } else if (movimentoEstoque.getTipoOperacao().equals(TipoOperacaoEnum.TRANSFERENCIA)) {
             for (ItensMovimentoEntity itens : itensMovimento) {
                 // Realiza a atualização de saldo no LocalEstoque Entrada
-                if (itens.getOperacao() == 'E') {
+                if (itens.getOperacao().equals(OperacaoEnum.ENTRADA)) {
                     // Consulta o Estoque em que será inserido o valor de Entrada, filtrando pelo LocalEstoqueId + ProdutoId
                     estoque = estoqueService.findBylocalEstoqueIdAndProdutoId(movimentoEstoque.getLocalEstoqueId(), itens.getProdutoId());
                     // Retorna o valor total de Entrada no estoque

@@ -2,8 +2,7 @@ package com.api.veroneze.data.entity.enums;
 
 public enum StatusOperacaoEnum {
     INICIADO(1),
-    CONCLUIDO(2),
-    CANCELADO(3);
+    CONCLUIDO(2);
 
     private int code;
 

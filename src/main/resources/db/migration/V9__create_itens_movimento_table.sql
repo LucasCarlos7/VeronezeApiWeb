@@ -6,7 +6,7 @@ CREATE TABLE itens_movimento (
     quantidade DOUBLE NOT NULL,
     valor_unitario_produto DOUBLE,
     valor_total_produto DOUBLE,
-    operacao VARCHAR(1),
+    operacao INT,
     produto_primario_id INT,
     CONSTRAINT fk_produto_id FOREIGN KEY (produto_id)
         REFERENCES produto (id) ON DELETE CASCADE,
