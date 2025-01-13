@@ -1,5 +1,6 @@
 package com.api.veroneze.data.entity;
 
+import com.api.veroneze.data.entity.enums.OperacaoEnum;
 import com.api.veroneze.data.entity.enums.StatusProdutoVendaEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
@@ -39,7 +40,8 @@ public class ItensVendaEntity {
     public ItensVendaEntity() {
     }
 
-    public ItensVendaEntity(Integer vendaId, Integer item, Integer produtoId, String nomeProduto, Double quantidade, Double valorUnitarioProduto, Double valorTotalProduto, Integer funcionarioId, Date dataAtualizacao, StatusProdutoVendaEnum statusProdutoVenda) {
+    public ItensVendaEntity(Integer vendaId, Integer item, Integer produtoId, String nomeProduto, Double quantidade, Double valorUnitarioProduto, Double valorTotalProduto,
+                            Integer funcionarioId, Date dataAtualizacao, StatusProdutoVendaEnum statusProdutoVenda) {
         this.vendaId = vendaId;
         this.item = item;
         this.produtoId = produtoId;
