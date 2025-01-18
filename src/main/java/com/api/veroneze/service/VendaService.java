@@ -33,15 +33,11 @@ public class VendaService {
     private ClienteService clienteService;
 
     @Autowired
-    private FuncionarioService funcionarioService;
-
-    @Autowired
     private EstoqueService estoqueService;
 
     public VendaEntity salvarVenda(VendaRequestDTO vendaRequestDTO) {
         VendaEntity vendaEntity = new VendaEntity();
         ClienteEntity clienteEntity = clienteService.listarClienteId(vendaRequestDTO.clienteId());
-        FuncionarioEntity funcionarioEntity = funcionarioService.listarFuncionarioId(1);
 
         if (clienteEntity.getCpf() == null) {
             vendaEntity.setCpf_cnpj(clienteEntity.getCnpj());
@@ -51,8 +47,6 @@ public class VendaService {
 
         vendaEntity.setClienteId(clienteEntity.getId());
         vendaEntity.setNomeCliente(clienteEntity.getNome());
-        vendaEntity.setFuncionarioId(funcionarioEntity.getId());
-        vendaEntity.setNomeFuncionario(funcionarioEntity.getNome());
         vendaEntity.setTotalOrcamentoInicial(0.0);
         vendaEntity.setDesconto(0.0);
         vendaEntity.setTotalOrcamentoFinal(0.0);
@@ -66,8 +60,6 @@ public class VendaService {
     public VendaEntity atualizarVenda(Integer vendaId, VendaRequestDTO vendaRequestDTO) {
         VendaEntity vendaEntity = new VendaEntity();
         ClienteEntity clienteEntity = clienteService.listarClienteId(vendaRequestDTO.clienteId());
-        FuncionarioEntity funcionarioEntity = funcionarioService.listarFuncionarioId(1);
-
         if (clienteEntity.getCpf() == null) {
             vendaEntity.setCpf_cnpj(clienteEntity.getCnpj());
         } else if (clienteEntity.getCnpj() == null) {
@@ -76,8 +68,6 @@ public class VendaService {
 
         vendaEntity.setClienteId(clienteEntity.getId());
         vendaEntity.setNomeCliente(clienteEntity.getNome());
-        vendaEntity.setFuncionarioId(funcionarioEntity.getId());
-        vendaEntity.setNomeFuncionario(funcionarioEntity.getNome());
         vendaEntity.setTotalOrcamentoInicial(0.0);
         vendaEntity.setDesconto(0.0);
         vendaEntity.setTotalOrcamentoFinal(0.0);

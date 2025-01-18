@@ -30,6 +30,8 @@ public class FornecedorService {
         fornecedorEntity.setNumeroEndereco(fornecedorRequest.numeroEnd());
         fornecedorEntity.setDataCriacao(new Date());
         fornecedorEntity.setInscricaoEstadual(fornecedorRequest.inscricaoEstadual());
+        fornecedorEntity.setCidade(fornecedorRequest.cidade());
+        fornecedorEntity.setUF(fornecedorRequest.UF());
 
         if (fornecedorRequest.tipoPessoa().getCode() == 1) { //Pessoa Fisica
             fornecedorEntity.setCpf(fornecedorRequest.cpf());
@@ -56,6 +58,8 @@ public class FornecedorService {
         fornecedorAtualizado.setNumeroEndereco(fornecedorRequest.numeroEnd());
         fornecedorAtualizado.setDataAtualizacao(new Date());
         fornecedorAtualizado.setInscricaoEstadual(fornecedorRequest.inscricaoEstadual());
+        fornecedorAtualizado.setCidade(fornecedorRequest.cidade());
+        fornecedorAtualizado.setUF(fornecedorRequest.UF());
 
         if (fornecedorRequest.tipoPessoa().getCode() == 1) { //Pessoa Fisica
             fornecedorAtualizado.setCpf(fornecedorRequest.cpf());

@@ -27,7 +27,6 @@ public class ItensVendaEntity {
     private Double quantidade;
     private Double valorUnitarioProduto;
     private Double valorTotalProduto;
-    private Integer funcionarioId;
     private Integer statusProdutoVenda;
 
     @Temporal(TemporalType.DATE)
@@ -40,8 +39,9 @@ public class ItensVendaEntity {
     public ItensVendaEntity() {
     }
 
-    public ItensVendaEntity(Integer vendaId, Integer item, Integer produtoId, String nomeProduto, Double quantidade, Double valorUnitarioProduto, Double valorTotalProduto,
-                            Integer funcionarioId, Date dataAtualizacao, StatusProdutoVendaEnum statusProdutoVenda) {
+    public ItensVendaEntity(Integer vendaId, Integer item, Integer produtoId, String nomeProduto, Double quantidade,
+                            Double valorUnitarioProduto, Double valorTotalProduto, Date dataAtualizacao,
+                            StatusProdutoVendaEnum statusProdutoVenda) {
         this.vendaId = vendaId;
         this.item = item;
         this.produtoId = produtoId;
@@ -49,7 +49,6 @@ public class ItensVendaEntity {
         this.quantidade = quantidade;
         this.valorUnitarioProduto = valorUnitarioProduto;
         this.valorTotalProduto = valorTotalProduto;
-        this.funcionarioId = funcionarioId;
         this.dataAtualizacao = dataAtualizacao;
         setStatusProdutoVenda(statusProdutoVenda);
     }
@@ -110,14 +109,6 @@ public class ItensVendaEntity {
 
     public void setValorTotalProduto(Double valorTotalProduto) {
         this.valorTotalProduto = valorTotalProduto;
-    }
-
-    public Integer getFuncionarioId() {
-        return funcionarioId;
-    }
-
-    public void setFuncionarioId(Integer funcionarioId) {
-        this.funcionarioId = funcionarioId;
     }
 
     public Date getDataAtualizacao() {

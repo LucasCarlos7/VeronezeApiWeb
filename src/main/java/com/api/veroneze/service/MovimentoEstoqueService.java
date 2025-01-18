@@ -38,19 +38,15 @@ public class MovimentoEstoqueService {
     @Autowired
     private FornecedorService fornecedorService;
 
-    @Autowired
-    private FuncionarioService funcionarioService;
-
     public MovimentoEstoqueEntity salvarMovimentoEstoque(MovimentoEstoqueRequestDTO movimentoEstoque) {
 
         LocalEstoqueEntity localEstoqueEntrada = localEstoqueService.listarLocalEstoqueId(movimentoEstoque.localEstoqueId());
         LocalEstoqueEntity localEstoqueSaida = null;
 
         FornecedorEntity fornecedor = fornecedorService.listarFornecedorId(movimentoEstoque.fornecedorId());
-        FuncionarioEntity funcionario = funcionarioService.listarFuncionarioId(movimentoEstoque.funcionarioId());
 
         if (movimentoEstoque.localEstoqueSaidaId() != null) {
-            localEstoqueSaida = localEstoqueService.listarLocalEstoqueId(movimentoEstoque.localEstoqueId());
+            localEstoqueSaida = localEstoqueService.listarLocalEstoqueId(movimentoEstoque.localEstoqueSaidaId());
         }
 
         if (localEstoqueEntrada == localEstoqueSaida) {
@@ -60,13 +56,17 @@ public class MovimentoEstoqueService {
         MovimentoEstoqueEntity movimentoEstoqueEntity = new MovimentoEstoqueEntity();
 
         movimentoEstoqueEntity.setLocalEstoqueId(localEstoqueEntrada.getId());
-        movimentoEstoqueEntity.setLocalEstoqueSaidaId(localEstoqueSaida.getId());
         movimentoEstoqueEntity.setFornecedorId(fornecedor.getId());
-        movimentoEstoqueEntity.setFuncionarioId(funcionario.getId());
         movimentoEstoqueEntity.setTipoOperacao(movimentoEstoque.tipoOperacao());
         movimentoEstoqueEntity.setStatusOperacao(StatusOperacaoEnum.INICIADO);
         movimentoEstoqueEntity.setValorOperacao(movimentoEstoque.valorOperacao());
         movimentoEstoqueEntity.setDataOperacao(new Date());
+
+        if (movimentoEstoque.tipoOperacao().equals(TipoOperacaoEnum.ENTRADA)) {
+            movimentoEstoqueEntity.setLocalEstoqueSaidaId(null);
+        } else {
+            movimentoEstoqueEntity.setLocalEstoqueSaidaId(localEstoqueSaida.getId());
+        }
 
         return movimentoEstoqueRepository.save(movimentoEstoqueEntity);
     }
@@ -82,10 +82,9 @@ public class MovimentoEstoqueService {
         LocalEstoqueEntity localEstoqueSaida = null;
 
         FornecedorEntity fornecedor = fornecedorService.listarFornecedorId(movimentoEstoque.fornecedorId());
-        FuncionarioEntity funcionario = funcionarioService.listarFuncionarioId(movimentoEstoque.funcionarioId());
 
         if (movimentoEstoque.localEstoqueSaidaId() != null) {
-            localEstoqueSaida = localEstoqueService.listarLocalEstoqueId(movimentoEstoque.localEstoqueId());
+            localEstoqueSaida = localEstoqueService.listarLocalEstoqueId(movimentoEstoque.localEstoqueSaidaId());
         }
 
         if (localEstoqueEntrada == localEstoqueSaida) {
@@ -95,7 +94,6 @@ public class MovimentoEstoqueService {
         movimentoEstoqueAtualizado.setLocalEstoqueId(localEstoqueEntrada.getId());
         movimentoEstoqueAtualizado.setLocalEstoqueSaidaId(localEstoqueSaida.getId());
         movimentoEstoqueAtualizado.setFornecedorId(fornecedor.getId());
-        movimentoEstoqueAtualizado.setFuncionarioId(funcionario.getId());
         movimentoEstoqueAtualizado.setTipoOperacao(movimentoEstoque.tipoOperacao());
         movimentoEstoqueAtualizado.setStatusOperacao(movimentoEstoque.statusOperacao());
         movimentoEstoqueAtualizado.setValorOperacao(movimentoEstoque.valorOperacao());

@@ -22,7 +22,7 @@ public class FuncionarioService {
 
     public FuncionarioEntity salvarFuncionario(FuncionarioRequestDTO funcionarioRequestDTO) {
 
-        if(funcionarioRepository.findByLogin(funcionarioRequestDTO.login()) != null) {
+        if (funcionarioRepository.findByLogin(funcionarioRequestDTO.login()) != null) {
             throw new RuntimeException("Usuário já cadastrado! Operação cancelada.");
         }
 
@@ -40,6 +40,8 @@ public class FuncionarioService {
         funcionarioEntity.setBairro(funcionarioRequestDTO.bairro());
         funcionarioEntity.setNumeroEndereco(funcionarioRequestDTO.numeroEndereco());
         funcionarioEntity.setDataCriacao(new Date());
+        funcionarioEntity.setCidade(funcionarioRequestDTO.cidade());
+        funcionarioEntity.setUF(funcionarioRequestDTO.UF());
 
         return funcionarioRepository.save(funcionarioEntity);
     }
@@ -60,6 +62,8 @@ public class FuncionarioService {
         funcionarioAtualizado.setBairro(funcionarioRequestDTO.bairro());
         funcionarioAtualizado.setNumeroEndereco(funcionarioRequestDTO.numeroEndereco());
         funcionarioAtualizado.setDataAtualizacao(new Date());
+        funcionarioAtualizado.setCidade(funcionarioRequestDTO.cidade());
+        funcionarioAtualizado.setUF(funcionarioRequestDTO.UF());
 
         return funcionarioRepository.save(funcionarioAtualizado);
     }

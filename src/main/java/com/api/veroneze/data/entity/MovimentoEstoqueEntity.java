@@ -23,9 +23,6 @@ public class MovimentoEstoqueEntity {
     private Integer fornecedorId;
 
     @NotNull
-    private Integer funcionarioId;
-
-    @NotNull
     private Integer tipoOperacao;
     private Integer statusOperacao;
 
@@ -39,13 +36,13 @@ public class MovimentoEstoqueEntity {
     public MovimentoEstoqueEntity() {
     }
 
-    public MovimentoEstoqueEntity(Integer id, Integer localEstoqueId, Integer localEstoqueSaidaId, Integer fornecedorId,
-                                  Integer funcionarioId, TipoOperacaoEnum tipoOperacao, StatusOperacaoEnum statusOperacao, Double valorOperacao, Date dataOperacao) {
+    public MovimentoEstoqueEntity(Integer id, Integer localEstoqueId, Integer localEstoqueSaidaId,
+                                  Integer fornecedorId, TipoOperacaoEnum tipoOperacao,
+                                  StatusOperacaoEnum statusOperacao, Double valorOperacao, Date dataOperacao) {
         this.id = id;
         this.localEstoqueId = localEstoqueId;
         this.localEstoqueSaidaId = localEstoqueSaidaId;
         this.fornecedorId = fornecedorId;
-        this.funcionarioId = funcionarioId;
         setTipoOperacao(tipoOperacao);
         setStatusOperacao(statusOperacao);
         this.valorOperacao = valorOperacao;
@@ -84,14 +81,6 @@ public class MovimentoEstoqueEntity {
 
     public void setFornecedorId(Integer fornecedorId) {
         this.fornecedorId = fornecedorId;
-    }
-
-    public Integer getFuncionarioId() {
-        return funcionarioId;
-    }
-
-    public void setFuncionarioId(Integer funcionarioId) {
-        this.funcionarioId = funcionarioId;
     }
 
     public TipoOperacaoEnum getTipoOperacao() {

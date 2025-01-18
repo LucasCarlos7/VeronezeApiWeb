@@ -11,6 +11,7 @@ import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Cliente")
@@ -42,6 +43,8 @@ public class ClienteEntity {
     private String endereco;
     private String bairro;
     private String numeroEndereco;
+    private String cidade;
+    private String UF;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dataCriacao;
@@ -54,8 +57,9 @@ public class ClienteEntity {
     public ClienteEntity() {
     }
 
-    public ClienteEntity(int id, String nome, TipoPessoaEnum tipoPessoa, String cpf, String cnpj, String telefone, String email, String cep, String endereco,
-                         String bairro, String numeroEndereco, Date dataCriacao, Date dataAtualizacao) {
+    public ClienteEntity(int id, String nome, TipoPessoaEnum tipoPessoa, String cpf, String cnpj, String telefone,
+                         String email, String cep, String endereco, String bairro, String numeroEndereco,
+                         Date dataCriacao, Date dataAtualizacao, String cidade, String UF) {
         this.id = id;
         this.nome = nome;
         setTipoPessoa(tipoPessoa);
@@ -69,6 +73,8 @@ public class ClienteEntity {
         this.numeroEndereco = numeroEndereco;
         this.dataCriacao = dataCriacao;
         this.dataAtualizacao = dataAtualizacao;
+        this.cidade = cidade;
+        this.UF = UF;
     }
 
     //Getters e Setters
@@ -178,5 +184,36 @@ public class ClienteEntity {
 
     public void setDataAtualizacao(Date dataAtualizacao) {
         this.dataAtualizacao = dataAtualizacao;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getUF() {
+        return UF;
+    }
+
+    public void setUF(String UF) {
+        this.UF = UF;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ClienteEntity that = (ClienteEntity) o;
+        return Objects.equals(cpf, that.cpf) && Objects.equals(cnpj, that.cnpj);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hashCode(cpf);
+        result = 31 * result + Objects.hashCode(cnpj);
+        return result;
     }
 }

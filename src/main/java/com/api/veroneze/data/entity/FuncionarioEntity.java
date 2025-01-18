@@ -29,7 +29,6 @@ public class FuncionarioEntity implements UserDetails {
     private String nome;
 
     @NotBlank(message = "Login obrigatório")
-    @Size(min = 5, message = "Informe ao menos 5 caracteres para o campo Login.")
     private String login;
 
     @NotBlank
@@ -51,6 +50,8 @@ public class FuncionarioEntity implements UserDetails {
     private String endereco;
     private String bairro;
     private String numeroEndereco;
+    private String cidade;
+    private String UF;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dataCriacao;
@@ -63,7 +64,9 @@ public class FuncionarioEntity implements UserDetails {
     public FuncionarioEntity() {
     }
 
-    public FuncionarioEntity(Integer id, String nome, String login, String senha, CargoEnum cargo, String cpf, String telefone, String email, String cep, String endereco, String bairro, String numeroEndereco, Date dataCriacao, Date dataAtualizacao) {
+    public FuncionarioEntity(Integer id, String nome, String login, String senha, CargoEnum cargo, String cpf,
+                             String telefone, String email, String cep, String endereco, String bairro,
+                             String numeroEndereco, Date dataCriacao, Date dataAtualizacao, String cidade, String UF) {
         this.id = id;
         this.nome = nome;
         this.login = login;
@@ -78,6 +81,8 @@ public class FuncionarioEntity implements UserDetails {
         this.numeroEndereco = numeroEndereco;
         this.dataCriacao = dataCriacao;
         this.dataAtualizacao = dataAtualizacao;
+        this.cidade = cidade;
+        this.UF = UF;
     }
 
     //Getters e Setters
@@ -196,21 +201,30 @@ public class FuncionarioEntity implements UserDetails {
         this.dataAtualizacao = dataAtualizacao;
     }
 
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getUF() {
+        return UF;
+    }
+
+    public void setUF(String UF) {
+        this.UF = UF;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.cargo == CargoEnum.DIRETORIA.getCode()) {
-            return List.of(
-                    new SimpleGrantedAuthority("ROLE_ADMIN"),
-                    new SimpleGrantedAuthority("ROLE_STAFF"),
-                    new SimpleGrantedAuthority("ROLE_USER"));
-        } else if (this.cargo == CargoEnum.GERENTE.getCode()) {
-            return List.of(
-                    new SimpleGrantedAuthority("ROLE_STAFF"),
-                    new SimpleGrantedAuthority("ROLE_USER"));
-        } else if (this.cargo == CargoEnum.ADMINISTRATIVO.getCode()) {
-            return List.of(
-                    new SimpleGrantedAuthority("ROLE_USER"));
-        } else return List.of(new SimpleGrantedAuthority("ROLE_GUEST"));
+        return List.of(
+                new SimpleGrantedAuthority("ROLE_ADMIN"),
+                new SimpleGrantedAuthority("ROLE_STAFF"),
+                new SimpleGrantedAuthority("ROLE_USER"),
+                new SimpleGrantedAuthority("ROLE_GUEST")
+        );
     }
 
     @Override

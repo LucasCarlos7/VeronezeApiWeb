@@ -29,6 +29,8 @@ public class ClienteService {
         clienteEntity.setBairro(clienteRequestDTO.bairro());
         clienteEntity.setNumeroEndereco(clienteRequestDTO.numeroEnd());
         clienteEntity.setDataCriacao(new Date());
+        clienteEntity.setCidade(clienteRequestDTO.cidade());
+        clienteEntity.setUF(clienteRequestDTO.UF());
 
         if (clienteRequestDTO.tipoPessoa().getCode() == 1) { //Pessoa Fisica
             clienteEntity.setCpf(clienteRequestDTO.cpf());
@@ -54,6 +56,8 @@ public class ClienteService {
         clienteAtualizado.setBairro(clienteRequestDTO.bairro());
         clienteAtualizado.setNumeroEndereco(clienteRequestDTO.numeroEnd());
         clienteAtualizado.setDataAtualizacao(new Date());
+        clienteAtualizado.setCidade(clienteRequestDTO.cidade());
+        clienteAtualizado.setUF(clienteRequestDTO.UF());
 
         if (clienteRequestDTO.tipoPessoa().getCode() == 1) { //Pessoa Fisica
             clienteAtualizado.setCpf(clienteRequestDTO.cpf());

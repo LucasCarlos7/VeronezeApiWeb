@@ -11,6 +11,7 @@ import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Fornecedor")
@@ -43,6 +44,8 @@ public class FornecedorEntity {
     private String endereco;
     private String bairro;
     private String numeroEndereco;
+    private String cidade;
+    private String UF;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dataCriacao;
@@ -55,7 +58,9 @@ public class FornecedorEntity {
     public FornecedorEntity() {
     }
 
-    public FornecedorEntity(Integer id, String nome, TipoPessoaEnum tipoPessoa, String cnpj, String cpf, String inscricaoEstadual, String telefone, String email, String cep, String endereco, String bairro, String numeroEndereco, Date dataCriacao, Date dataAtualizacao) {
+    public FornecedorEntity(Integer id, String nome, TipoPessoaEnum tipoPessoa, String cnpj, String cpf, String inscricaoEstadual,
+                            String telefone, String email, String cep, String endereco, String bairro, String numeroEndereco,
+                            Date dataCriacao, Date dataAtualizacao, String cidade, String UF) {
         this.id = id;
         this.nome = nome;
         setTipoPessoa(tipoPessoa);
@@ -70,6 +75,8 @@ public class FornecedorEntity {
         this.numeroEndereco = numeroEndereco;
         this.dataCriacao = dataCriacao;
         this.dataAtualizacao = dataAtualizacao;
+        this.cidade = cidade;
+        this.UF = UF;
     }
 
     // Getters e Setters
@@ -187,5 +194,36 @@ public class FornecedorEntity {
 
     public void setDataAtualizacao(Date dataAtualizacao) {
         this.dataAtualizacao = dataAtualizacao;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getUF() {
+        return UF;
+    }
+
+    public void setUF(String UF) {
+        this.UF = UF;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+
+        FornecedorEntity that = (FornecedorEntity) o;
+        return Objects.equals(cnpj, that.cnpj) && Objects.equals(cpf, that.cpf);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hashCode(cnpj);
+        result = 31 * result + Objects.hashCode(cpf);
+        return result;
     }
 }

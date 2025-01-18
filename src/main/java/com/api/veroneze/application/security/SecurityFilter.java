@@ -1,4 +1,4 @@
-package com.api.veroneze.config.seguranca;
+package com.api.veroneze.application.security;
 
 import com.api.veroneze.data.inteface.FuncionarioRepository;
 import jakarta.servlet.FilterChain;
@@ -32,6 +32,7 @@ public class SecurityFilter extends OncePerRequestFilter {
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
+        filterChain.doFilter(request, response);
     }
 
     private String recoverToken(HttpServletRequest request) {

@@ -20,9 +20,6 @@ public class VendaEntity {
     private Integer clienteId;
     private String nomeCliente;
     private String cpf_cnpj;
-    @NotNull
-    private Integer funcionarioId;
-    private String nomeFuncionario;
     private Double totalOrcamentoInicial;
     private Double desconto;
     private Double totalOrcamentoFinal;
@@ -39,14 +36,13 @@ public class VendaEntity {
     public VendaEntity() {
     }
 
-    public VendaEntity(Integer id, Integer clienteId, String nomeCliente, String cpf_cnpj, Integer funcionarioId, String nomeFuncionario, Double totalOrcamentoInicial,
-                       Double desconto, Double totalOrcamentoFinal, Integer localEstoqueId, StatusVendaEnum statusVenda, Date dataVenda, Date dataAtualizacao) {
+    public VendaEntity(Integer id, Integer clienteId, String nomeCliente, String cpf_cnpj,
+                       Double totalOrcamentoInicial, Double desconto, Double totalOrcamentoFinal,
+                       Integer localEstoqueId, StatusVendaEnum statusVenda, Date dataVenda, Date dataAtualizacao) {
         this.id = id;
         this.clienteId = clienteId;
         this.nomeCliente = nomeCliente;
         this.cpf_cnpj = cpf_cnpj;
-        this.funcionarioId = funcionarioId;
-        this.nomeFuncionario = nomeFuncionario;
         this.totalOrcamentoInicial = totalOrcamentoInicial;
         this.desconto = desconto;
         this.totalOrcamentoFinal = totalOrcamentoFinal;
@@ -55,8 +51,8 @@ public class VendaEntity {
         this.dataVenda = dataVenda;
         this.dataAtualizacao = dataAtualizacao;
     }
-    //Getters e Setters
 
+    //Getters e Setters
 
     public Integer getId() {
         return id;
@@ -88,22 +84,6 @@ public class VendaEntity {
 
     public void setCpf_cnpj(String cpf_cnpj) {
         this.cpf_cnpj = cpf_cnpj;
-    }
-
-    public Integer getFuncionarioId() {
-        return funcionarioId;
-    }
-
-    public void setFuncionarioId(Integer funcionarioId) {
-        this.funcionarioId = funcionarioId;
-    }
-
-    public String getNomeFuncionario() {
-        return nomeFuncionario;
-    }
-
-    public void setNomeFuncionario(String nomeFuncionario) {
-        this.nomeFuncionario = nomeFuncionario;
     }
 
     public Double getTotalOrcamentoInicial() {

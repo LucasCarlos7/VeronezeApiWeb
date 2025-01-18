@@ -1,6 +1,6 @@
 package com.api.veroneze.controller;
 
-import com.api.veroneze.config.seguranca.TokenService;
+import com.api.veroneze.application.security.TokenService;
 import com.api.veroneze.data.entity.FuncionarioEntity;
 import com.api.veroneze.data.entity.dto.AuthenticationDTO;
 import com.api.veroneze.data.entity.dto.LoginResponseDTO;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -25,9 +25,6 @@ public class ItensVendaService {
     private ProdutoCompostoService produtoCompostoService;
 
     @Autowired
-    private FuncionarioService funcionarioService;
-
-    @Autowired
     private VendaService vendaService;
 
     public ItensVendaEntity salvarItensVenda(ItensVendaRequestDTO itensVendaRequestDTO) {
@@ -39,8 +36,6 @@ public class ItensVendaService {
         ProdutoEntity produto = produtoService.listarProdutoId(itensVendaRequestDTO.produtoId());
         // Lista todos os produtos compostos de receita para o produtoId informado
         List<ProdutoCompostoEntity> produtosCompostos = produtoCompostoService.findByProdutoId(produto.getId());
-        // Valida se existe o funcionario pelo param funcionarioId;
-        FuncionarioEntity funcionario = funcionarioService.listarFuncionarioId(1);
 
         // Valida se a venda está com o Status aberto
         if (vendaEntity.getStatusVenda().equals(StatusVendaEnum.FECHADO)) {
@@ -54,7 +49,6 @@ public class ItensVendaService {
         novoItemVenda.setValorUnitarioProduto(produto.getPreco());
         novoItemVenda.setQuantidade(itensVendaRequestDTO.quantidade());
         novoItemVenda.setValorTotalProduto(getValorTotalProduto(itensVendaRequestDTO));
-        novoItemVenda.setFuncionarioId(funcionario.getId());
         novoItemVenda.setDataAtualizacao(new Date());
         novoItemVenda.setStatusProdutoVenda(StatusProdutoVendaEnum.ATIVO);
 
@@ -67,6 +61,7 @@ public class ItensVendaService {
             ProdutoEntity produtoComposto = produtoService.listarProdutoId(produtos.getProdutoCompostoId());
 
             itensVendaComposto.setProdutoId(produtoComposto.getId());
+            itensVendaComposto.setItem(getNextItem());
             itensVendaComposto.setVendaId(vendaEntity.getId());
             itensVendaComposto.setNomeProduto(produtoComposto.getNome());
             itensVendaComposto.setValorUnitarioProduto(produtoComposto.getPreco());

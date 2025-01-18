@@ -1,4 +1,4 @@
-package com.api.veroneze.config.seguranca;
+package com.api.veroneze.application.security;
 
 import com.api.veroneze.data.entity.FuncionarioEntity;
 import com.auth0.jwt.JWT;
