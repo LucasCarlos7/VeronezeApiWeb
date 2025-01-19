@@ -20,19 +20,17 @@ public class ItensMovimentoController {
 
     @PostMapping("/adicionar")
     public ResponseEntity<ItensMovimentoEntity> addItensMovimento(@Valid @RequestBody ItensMovimentoRequestDTO itensMovimentoRequest) {
-        //try {
-            var novoItem = itensMovimentoService.salvarItensMovimento(itensMovimentoRequest);
+        var novoItem = itensMovimentoService.salvarItensMovimento(itensMovimentoRequest);
 
-            return new ResponseEntity<>(novoItem, HttpStatus.CREATED);
-//        } catch (RuntimeException e) {
-//            throw new RuntimeException("");
-//        }
+        return new ResponseEntity<>(novoItem, HttpStatus.CREATED);
     }
 
-    /*@GetMapping("/listar")
-    public ResponseEntity<List> getAllItensMovimento(){
-        List<ItensMovimentoEntity> itens = itensMovimentoService.
-    }*/
+    @GetMapping("/pesquisar/{movimentoId}")
+    public ResponseEntity<List> getItensMovimentoById(@PathVariable Integer movimentoId){
+        List<ItensMovimentoEntity> itens = itensMovimentoService.findByMovimentoEstoqueId(movimentoId);
+
+        return new ResponseEntity<>(itens, HttpStatus.OK);
+    }
 
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity deletarItensMovimento(@PathVariable Integer id) {

@@ -14,7 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
-public class ValidationHandler extends ResponseEntityExceptionHandler { //Classe extendida de RespondeEntityExceptionHandler, classe-base quando se deseja implementar tratamento de exceções centralizado, fornece metodos
+public class ValidationHandler extends ResponseEntityExceptionHandler { //Classe extendida de RespondeEntityExceptionHandler,
+    // classe-base quando se deseja implementar tratamento de exceções centralizado, fornece metodos
     // para lidar com exceções internas do Spring MVC
 
     @Override

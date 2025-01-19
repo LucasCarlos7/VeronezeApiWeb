@@ -50,7 +50,7 @@ public class MovimentoEstoqueService {
         }
 
         if (localEstoqueEntrada == localEstoqueSaida) {
-            new RuntimeException("Operação não permitida! Locais de Estoque iguais.");
+            throw new RuntimeException("Operação não permitida! Locais de Estoque iguais.");
         }
 
         MovimentoEstoqueEntity movimentoEstoqueEntity = new MovimentoEstoqueEntity();
@@ -88,7 +88,7 @@ public class MovimentoEstoqueService {
         }
 
         if (localEstoqueEntrada == localEstoqueSaida) {
-            new RuntimeException("Operação não permitida! Locais de Estoque iguais.");
+            throw new RuntimeException("Operação não permitida! Locais de Estoque iguais.");
         }
 
         movimentoEstoqueAtualizado.setLocalEstoqueId(localEstoqueEntrada.getId());

@@ -35,9 +35,13 @@ public class VendaService {
     @Autowired
     private EstoqueService estoqueService;
 
+    @Autowired
+    private LocalEstoqueService localEstoqueService;
+
     public VendaEntity salvarVenda(VendaRequestDTO vendaRequestDTO) {
         VendaEntity vendaEntity = new VendaEntity();
         ClienteEntity clienteEntity = clienteService.listarClienteId(vendaRequestDTO.clienteId());
+        LocalEstoqueEntity localEstoque = localEstoqueService.listarLocalEstoqueId(vendaRequestDTO.localestoqueId());
 
         if (clienteEntity.getCpf() == null) {
             vendaEntity.setCpf_cnpj(clienteEntity.getCnpj());
@@ -50,7 +54,7 @@ public class VendaService {
         vendaEntity.setTotalOrcamentoInicial(0.0);
         vendaEntity.setDesconto(0.0);
         vendaEntity.setTotalOrcamentoFinal(0.0);
-        vendaEntity.setLocalEstoqueId(vendaRequestDTO.localestoqueId());
+        vendaEntity.setLocalEstoqueId(localEstoque.getId());
         vendaEntity.setStatusVenda(StatusVendaEnum.ABERTO);
         vendaEntity.setDataVenda(new Date());
 
@@ -58,8 +62,11 @@ public class VendaService {
     }
 
     public VendaEntity atualizarVenda(Integer vendaId, VendaRequestDTO vendaRequestDTO) {
-        VendaEntity vendaEntity = new VendaEntity();
+
+        VendaEntity vendaEntity = listarVendaId(vendaId);
         ClienteEntity clienteEntity = clienteService.listarClienteId(vendaRequestDTO.clienteId());
+        LocalEstoqueEntity localEstoque = localEstoqueService.listarLocalEstoqueId(vendaRequestDTO.localestoqueId());
+
         if (clienteEntity.getCpf() == null) {
             vendaEntity.setCpf_cnpj(clienteEntity.getCnpj());
         } else if (clienteEntity.getCnpj() == null) {
@@ -68,20 +75,44 @@ public class VendaService {
 
         vendaEntity.setClienteId(clienteEntity.getId());
         vendaEntity.setNomeCliente(clienteEntity.getNome());
-        vendaEntity.setTotalOrcamentoInicial(0.0);
-        vendaEntity.setDesconto(0.0);
-        vendaEntity.setTotalOrcamentoFinal(0.0);
-        vendaEntity.setLocalEstoqueId(vendaRequestDTO.localestoqueId());
-        vendaEntity.setStatusVenda(StatusVendaEnum.ABERTO);
-        vendaEntity.setDataVenda(new Date());
-
-        if (vendaEntity.getStatusVenda().equals(StatusVendaEnum.FECHADO)) {
-            atualizarEstoqueVenda(vendaEntity.getId());
-        } else if (vendaEntity.getStatusVenda().equals(StatusVendaEnum.ABERTO)) {
-            cancelarEstoqueVenda(vendaEntity.getId());
-        }
+        vendaEntity.setLocalEstoqueId(localEstoque.getId());
+        vendaEntity.setStatusVenda(vendaEntity.getStatusVenda());
+        vendaEntity.setDataAtualizacao(new Date());
 
         return vendaRepository.save(vendaEntity);
+    }
+
+    public VendaEntity finalizarOuCancelarVenda(Integer vendaId, VendaRequestDTO vendaRequestDTO) {
+        VendaEntity venda = listarVendaId(vendaId);
+
+        venda.setDataAtualizacao(new Date());
+
+        if (venda.getStatusVenda().equals(StatusVendaEnum.ABERTO)) {
+            venda.setDesconto(vendaRequestDTO.desconto());
+            vendaRepository.save(venda);
+            atualizarTotalOrcamento(venda.getId());
+            atualizaStatusVenda(venda.getId());
+            return venda;
+        }
+
+        vendaRepository.save(venda);
+        atualizaStatusVenda(venda.getId());
+
+        return venda;
+    }
+
+    public void atualizaStatusVenda(Integer vendaId) {
+        VendaEntity venda = listarVendaId(vendaId);
+
+        if (venda.getStatusVenda().equals(StatusVendaEnum.ABERTO)) {
+            venda.setStatusVenda(StatusVendaEnum.FECHADO);
+            atualizarEstoqueVenda(venda.getId());
+            vendaRepository.save(venda);
+        } else {
+            venda.setStatusVenda(StatusVendaEnum.ABERTO);
+            cancelarEstoqueVenda(venda.getId());
+            vendaRepository.save(venda);
+        }
     }
 
     public void atualizarTotalOrcamento(Integer vendaId) {
@@ -112,15 +143,8 @@ public class VendaService {
         return obj.orElseThrow(() -> new RuntimeException("Venda ID: " + vendaId + " não encontrada!"));
     }
 
-    public VendaEntity atualizaStatusVenda(Integer vendaId) {
-        VendaEntity venda = listarVendaId(vendaId);
-
-        if (venda.getStatusVenda().equals(StatusVendaEnum.ABERTO)) {
-            venda.setStatusVenda(StatusVendaEnum.FECHADO);
-        } else {
-            venda.setStatusVenda(StatusVendaEnum.ABERTO);
-        }
-        return venda;
+    public List<VendaEntity> listarTodasVendas() {
+        return vendaRepository.findAll();
     }
 
     public void atualizarEstoqueVenda(Integer vendaId) {
@@ -167,5 +191,10 @@ public class VendaService {
             // Salva a alteração no banco
             estoqueRepository.save(estoque);
         }
+    }
+
+    public Integer getNextId() {
+        Integer lastId = vendaRepository.findLastId();
+        return (lastId != null) ? lastId + 1 : 1;
     }
 }
