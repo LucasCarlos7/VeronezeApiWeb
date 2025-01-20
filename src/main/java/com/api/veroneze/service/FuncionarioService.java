@@ -4,7 +4,7 @@ import com.api.veroneze.data.entity.FuncionarioEntity;
 import com.api.veroneze.data.entity.dto.FuncionarioRequestDTO;
 import com.api.veroneze.data.inteface.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -17,20 +17,21 @@ public class FuncionarioService {
     @Autowired
     private FuncionarioRepository funcionarioRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     public FuncionarioEntity salvarFuncionario(FuncionarioRequestDTO funcionarioRequestDTO) {
 
-        if (funcionarioRepository.findByLogin(funcionarioRequestDTO.login()) != null) {
-            throw new RuntimeException("Usuário já cadastrado! Operação cancelada.");
-        }
+//        if (funcionarioRepository.findByLogin(funcionarioRequestDTO.login()) != null) {
+//            throw new RuntimeException("Usuário já cadastrado! Operação cancelada.");
+//        }
 
         FuncionarioEntity funcionarioEntity = new FuncionarioEntity();
 
         funcionarioEntity.setNome(funcionarioRequestDTO.nome());
         funcionarioEntity.setLogin(funcionarioRequestDTO.login());
-        funcionarioEntity.setSenha(passwordEncoder.encode(funcionarioRequestDTO.senha()));
+//        funcionarioEntity.setSenha(passwordEncoder.encode(funcionarioRequestDTO.senha()));
+        funcionarioEntity.setSenha(funcionarioRequestDTO.senha());
         funcionarioEntity.setCargo(funcionarioRequestDTO.cargo());
         funcionarioEntity.setCpf(funcionarioRequestDTO.cpf());
         funcionarioEntity.setTelefone(funcionarioRequestDTO.telefone());
@@ -52,6 +53,7 @@ public class FuncionarioService {
 
         funcionarioAtualizado.setNome(funcionarioRequestDTO.nome());
         funcionarioAtualizado.setLogin(funcionarioRequestDTO.login());
+//        funcionarioAtualizado.setSenha(passwordEncoder.encode(funcionarioRequestDTO.senha()));
         funcionarioAtualizado.setSenha(funcionarioRequestDTO.senha());
         funcionarioAtualizado.setCargo(funcionarioRequestDTO.cargo());
         funcionarioAtualizado.setCpf(funcionarioRequestDTO.cpf());

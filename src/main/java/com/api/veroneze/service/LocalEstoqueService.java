@@ -7,7 +7,7 @@ import com.api.veroneze.data.entity.dto.LocalEstoqueRequestDTO;
 import com.api.veroneze.data.inteface.EstoqueRepository;
 import com.api.veroneze.data.inteface.LocalEstoqueRepository;
 import com.api.veroneze.data.inteface.ProdutoRepository;
-import com.api.veroneze.exception.ResourceNotFoundException;
+//import com.api.veroneze.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -67,7 +67,7 @@ public class LocalEstoqueService {
     public LocalEstoqueEntity listarLocalEstoqueId(Integer localEstoqueId) {
         Optional<LocalEstoqueEntity> obj = localEstoqueRepository.findById(localEstoqueId);
 
-        return obj.orElseThrow(() -> new ResourceNotFoundException("Local Estoque não encontrado."));
+        return obj.orElseThrow(() -> new RuntimeException("Local Estoque não encontrado."));
     }
 
     public List<LocalEstoqueEntity> listarTodosLocalEstoque() {

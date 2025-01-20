@@ -5,7 +5,7 @@ import com.api.veroneze.data.entity.ProdutoEntity;
 import com.api.veroneze.data.entity.dto.ProdutoCompostoRequestDTO;
 import com.api.veroneze.data.inteface.ProdutoCompostoRepository;
 import com.api.veroneze.data.inteface.ProdutoRepository;
-import com.api.veroneze.exception.ResourceNotFoundException;
+//import com.api.veroneze.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,7 +57,7 @@ public class ProdutoCompostoService {
 
     public ProdutoCompostoEntity listarProdutoCompostoId(Integer prodCompostoId) {
         Optional<ProdutoCompostoEntity> prodComposto = produtoCompostoRepository.findById(prodCompostoId);
-        return prodComposto.orElseThrow(() -> new ResourceNotFoundException("Produto Composto não encontrado " + prodCompostoId));
+        return prodComposto.orElseThrow(() -> new RuntimeException("Produto Composto não encontrado " + prodCompostoId));
     }
 
     public void deletarProdutoComposto(Integer prodCompostoId) {

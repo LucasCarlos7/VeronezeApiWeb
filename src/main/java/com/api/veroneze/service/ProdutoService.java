@@ -7,7 +7,7 @@ import com.api.veroneze.data.entity.dto.ProdutoRequestDTO;
 import com.api.veroneze.data.inteface.EstoqueRepository;
 import com.api.veroneze.data.inteface.LocalEstoqueRepository;
 import com.api.veroneze.data.inteface.ProdutoRepository;
-import com.api.veroneze.exception.ResourceNotFoundException;
+//import com.api.veroneze.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -75,7 +75,7 @@ public class ProdutoService {
 
     public ProdutoEntity listarProdutoId(Integer produtoId) {
         Optional<ProdutoEntity> obj = produtoRepository.findById(produtoId);
-        return obj.orElseThrow(() -> new ResourceNotFoundException("Produto ID: " + produtoId + " não encontrado!"));
+        return obj.orElseThrow(() -> new RuntimeException("Produto ID: " + produtoId + " não encontrado!"));
     }
 
     public List<ProdutoEntity> listarTodosProdutos() {
