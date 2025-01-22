@@ -10,7 +10,7 @@
 
 
 
-1. IDE: NetBeans
+1. IDE: NetBeans, Intellij e VS CODE
 2. Liguagem BackEnd: JAVA
 3. Linguagem FrontEnd: HTML, CSS, JAVASCRIPT
 4. Banco de dados: MySQL
