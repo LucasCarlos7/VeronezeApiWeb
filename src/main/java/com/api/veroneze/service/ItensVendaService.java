@@ -5,6 +5,7 @@ import com.api.veroneze.data.entity.dto.ItensVendaRequestDTO;
 import com.api.veroneze.data.entity.enums.OperacaoEnum;
 import com.api.veroneze.data.entity.enums.StatusProdutoVendaEnum;
 import com.api.veroneze.data.entity.enums.StatusVendaEnum;
+import com.api.veroneze.data.entity.views.ItensVendaDTO;
 import com.api.veroneze.data.inteface.ItensVendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -130,6 +131,12 @@ public class ItensVendaService {
         if (itens == null) {
             throw new RuntimeException("Item(ns) não encontrado.");
         }
+
+        return itens;
+    }
+
+    public List<ItensVendaDTO> findItensVendaByVendaId(Integer vendaId) {
+        List<ItensVendaDTO> itens = itensVendaRepository.findItensVendaByVendaId(vendaId);
 
         return itens;
     }

@@ -2,6 +2,8 @@ package com.api.veroneze.controller;
 
 import com.api.veroneze.data.entity.VendaEntity;
 import com.api.veroneze.data.entity.dto.VendaRequestDTO;
+import com.api.veroneze.data.entity.views.ItensVendaDTO;
+import com.api.veroneze.data.entity.views.VendaComProdutosDTO;
 import com.api.veroneze.service.VendaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,5 +69,12 @@ public class VendaController {
         Integer nextId = vendaService.getNextId();
 
         return ResponseEntity.ok(nextId);
+    }
+
+    @GetMapping("/venda-com-produtos/{vendaId}")
+    public ResponseEntity<VendaComProdutosDTO> getVendaComProdudosByVendaId(Integer vendaId) {
+        VendaComProdutosDTO vendaDTO = vendaService.vendaComProdutosDTO(vendaId);
+
+        return new ResponseEntity<>(vendaDTO, HttpStatus.OK);
     }
 }

@@ -5,6 +5,8 @@ import com.api.veroneze.data.entity.dto.VendaRequestDTO;
 import com.api.veroneze.data.entity.enums.OperacaoEnum;
 import com.api.veroneze.data.entity.enums.StatusProdutoVendaEnum;
 import com.api.veroneze.data.entity.enums.StatusVendaEnum;
+import com.api.veroneze.data.entity.views.ItensVendaDTO;
+import com.api.veroneze.data.entity.views.VendaComProdutosDTO;
 import com.api.veroneze.data.inteface.EstoqueRepository;
 import com.api.veroneze.data.inteface.ItensVendaRepository;
 import com.api.veroneze.data.inteface.VendaRepository;
@@ -120,10 +122,8 @@ public class VendaService {
         List<ItensVendaEntity> itensVenda = itensVendaService.findByVendaId(vendaId);
 
         // Calcula o total do orçamento inicial somando os valores totais dos produtos com status ativo
-        Double totalOrcamentoInicial = itensVenda.stream()
-                .filter(item -> item.getStatusProdutoVenda() == StatusProdutoVendaEnum.ATIVO) // Filtra somente itens ativos
-                .mapToDouble(ItensVendaEntity::getValorTotalProduto)
-                .sum();
+        Double totalOrcamentoInicial = itensVenda.stream().filter(item -> item.getStatusProdutoVenda() == StatusProdutoVendaEnum.ATIVO) // Filtra somente itens ativos
+                .mapToDouble(ItensVendaEntity::getValorTotalProduto).sum();
 
         // Busca a venda correpondente pelo ID
         VendaEntity venda = listarVendaId(vendaId);
@@ -196,5 +196,18 @@ public class VendaService {
     public Integer getNextId() {
         Integer lastId = vendaRepository.findLastId();
         return (lastId != null) ? lastId + 1 : 1;
+    }
+
+    public VendaComProdutosDTO vendaComProdutosDTO(Integer vendaId) {
+        VendaComProdutosDTO vendaDTO = vendaRepository.findVendaComProdutoById(vendaId);
+
+        if (vendaDTO == null) {
+            throw new RuntimeException("Venda ID: " + vendaId + " não encontrada.");
+        }
+
+        List<ItensVendaDTO> itens = itensVendaService.findItensVendaByVendaId(vendaDTO.getId());
+        vendaDTO.setItensVendaList(itens);
+
+        return vendaDTO;
     }
 }
