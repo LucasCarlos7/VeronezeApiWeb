@@ -1,4 +1,4 @@
-package com.api.veroneze.data.entity.dto;
+package com.api.veroneze.data.entity.views;
 
 public class EstoqueDTO {
 

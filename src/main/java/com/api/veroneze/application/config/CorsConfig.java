@@ -9,9 +9,10 @@ public class CorsConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/*") //Permite todos os endpoints
-                .allowedOrigins("http://127.0.0.1:5500") //origem permitida
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Métodos permitidos
-                .allowedHeaders("*"); //Cabeçalho permitidos
+        registry.addMapping("/**") // Permite todos os endpoints
+                .allowedOrigins("*") // Permite todas as origens
+                .allowedMethods("*") // Permite todos os métodos HTTP (GET, POST, PUT, DELETE, etc.)
+                .allowedHeaders("*") // Permite todos os cabeçalhos
+                .allowCredentials(false); // Não permite cookies compartilhados por segurança
     }
 }

@@ -1,17 +1,12 @@
 package com.api.veroneze.service;
 
 import com.api.veroneze.data.entity.*;
-import com.api.veroneze.data.entity.dto.EstoqueDTO;
-import com.api.veroneze.data.entity.dto.EstoqueRequestDTO;
+import com.api.veroneze.data.entity.views.EstoqueDTO;
 import com.api.veroneze.data.inteface.EstoqueRepository;
-import com.api.veroneze.data.inteface.ItensMovimentoRepository;
-import com.api.veroneze.data.inteface.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EstoqueService {
