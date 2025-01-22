@@ -2,6 +2,7 @@ package com.api.veroneze.controller;
 
 import com.api.veroneze.data.entity.ProdutoEntity;
 import com.api.veroneze.data.entity.dto.ProdutoRequestDTO;
+import com.api.veroneze.data.entity.views.ProdutoEstoqueDTO;
 import com.api.veroneze.service.ProdutoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,11 @@ public class ProdutoController {
         Integer nextId = produtoService.getNextId();
 
         return ResponseEntity.ok(nextId);
+    }
+
+    @GetMapping("/produto-estoque/{produtoId}")
+    public ProdutoEstoqueDTO getProdutoEstoque(@PathVariable Integer produtoId) {
+        return produtoService.getProdutoEstoqueById(produtoId);
     }
 }
 
