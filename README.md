@@ -20,7 +20,7 @@
 
 
 
-1. Product Owner: Luacas Carlos
+1. Product Owner: Lucas Carlos
 2. Scrum Master: Lucas Carlos
 3. BackEnd: Lucas Carlos
 
