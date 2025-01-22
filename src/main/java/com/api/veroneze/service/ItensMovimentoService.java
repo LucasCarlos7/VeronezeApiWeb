@@ -8,6 +8,7 @@ import com.api.veroneze.data.entity.dto.ItensMovimentoRequestDTO;
 import com.api.veroneze.data.entity.enums.OperacaoEnum;
 import com.api.veroneze.data.entity.enums.StatusOperacaoEnum;
 import com.api.veroneze.data.entity.enums.TipoOperacaoEnum;
+import com.api.veroneze.data.entity.views.ItensMovimentoEstoqueDTO;
 import com.api.veroneze.data.inteface.ItensMovimentoRepository;
 import com.api.veroneze.data.inteface.MovimentoEstoqueRepository;
 import com.api.veroneze.data.inteface.ProdutoCompostoRepository;
@@ -113,5 +114,18 @@ public class ItensMovimentoService {
             valorTotal = 0.0;
         }
         return valorTotal;
+    }
+
+    public List<ItensMovimentoEstoqueDTO> getAllItensByMovimentoId(Integer movimentoId) {
+
+        MovimentoEstoqueEntity movimentoEstoque = movimentoEstoqueService.listarMovimentoEstoqueId(movimentoId);
+
+        List<ItensMovimentoEstoqueDTO> itens = itensMovimentoRepository.findItensMovimentoEstoqueByMovimentoId(movimentoEstoque.getId());
+
+        if (itens.size() == 0) {
+            throw new RuntimeException("Itens não encontrado para a movimentação ID: " + movimentoEstoque.getId());
+        }
+
+        return itens;
     }
 }

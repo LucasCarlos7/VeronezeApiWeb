@@ -5,6 +5,8 @@ import com.api.veroneze.data.entity.dto.MovimentoEstoqueRequestDTO;
 import com.api.veroneze.data.entity.enums.OperacaoEnum;
 import com.api.veroneze.data.entity.enums.StatusOperacaoEnum;
 import com.api.veroneze.data.entity.enums.TipoOperacaoEnum;
+import com.api.veroneze.data.entity.views.ItensMovimentoEstoqueDTO;
+import com.api.veroneze.data.entity.views.MovimentoEstoqueComProdutoDTO;
 import com.api.veroneze.data.inteface.EstoqueRepository;
 import com.api.veroneze.data.inteface.MovimentoEstoqueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -295,5 +297,20 @@ public class MovimentoEstoqueService {
                 }
             }
         }
+    }
+
+    public MovimentoEstoqueComProdutoDTO getMovimentoEstoqueComProdutoById(Integer movimentoEstoqueId) {
+
+        MovimentoEstoqueComProdutoDTO movimentoEstoque = movimentoEstoqueRepository.findMovimentoEstoqueComProdutoById(movimentoEstoqueId);
+
+        if (movimentoEstoque == null) {
+            throw new RuntimeException("Movimento ID: " + movimentoEstoque.getId() + " não encotrado.");
+        }
+
+        List<ItensMovimentoEstoqueDTO> itensMovimento = itensMovimentoService.getAllItensByMovimentoId(movimentoEstoque.getId());
+
+        movimentoEstoque.setItensMovimentoEstoque(itensMovimento);
+
+        return movimentoEstoque;
     }
 }

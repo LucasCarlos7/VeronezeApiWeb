@@ -2,6 +2,7 @@ package com.api.veroneze.controller;
 
 import com.api.veroneze.data.entity.MovimentoEstoqueEntity;
 import com.api.veroneze.data.entity.dto.MovimentoEstoqueRequestDTO;
+import com.api.veroneze.data.entity.views.MovimentoEstoqueComProdutoDTO;
 import com.api.veroneze.service.MovimentoEstoqueService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +53,12 @@ public class MovimentoEstoqueController {
         Integer nextId = movimentoEstoqueService.getNextId();
 
         return ResponseEntity.ok(nextId);
+    }
+
+    @GetMapping("/movimento-com-produtos/{movimentoId}")
+    public ResponseEntity<MovimentoEstoqueComProdutoDTO> getMovimentoEstoqueComProdutoById(@PathVariable Integer movimentoId) {
+        MovimentoEstoqueComProdutoDTO movimentoEstoque = movimentoEstoqueService.getMovimentoEstoqueComProdutoById(movimentoId);
+
+        return new ResponseEntity<>(movimentoEstoque, HttpStatus.OK);
     }
 }
