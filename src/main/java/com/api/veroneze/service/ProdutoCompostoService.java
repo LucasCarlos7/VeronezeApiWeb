@@ -3,6 +3,7 @@ package com.api.veroneze.service;
 import com.api.veroneze.data.entity.ProdutoCompostoEntity;
 import com.api.veroneze.data.entity.ProdutoEntity;
 import com.api.veroneze.data.entity.dto.ProdutoCompostoRequestDTO;
+import com.api.veroneze.data.entity.views.ListagemProdutoCompostoDTO;
 import com.api.veroneze.data.inteface.ProdutoCompostoRepository;
 import com.api.veroneze.data.inteface.ProdutoRepository;
 //import com.api.veroneze.exception.ResourceNotFoundException;
@@ -74,5 +75,11 @@ public class ProdutoCompostoService {
         }
 
         return produtosCompostos;
+    }
+
+    public List<ListagemProdutoCompostoDTO> findProdutoCompostoByProdutoId(Integer produtoId) {
+        List<ListagemProdutoCompostoDTO> produtos = produtoCompostoRepository.findProdutoCompostoByProdutoId(produtoId);
+
+        return produtos;
     }
 }

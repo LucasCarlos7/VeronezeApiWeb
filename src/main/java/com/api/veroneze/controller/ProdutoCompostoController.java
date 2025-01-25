@@ -2,6 +2,7 @@ package com.api.veroneze.controller;
 
 import com.api.veroneze.data.entity.ProdutoCompostoEntity;
 import com.api.veroneze.data.entity.dto.ProdutoCompostoRequestDTO;
+import com.api.veroneze.data.entity.views.ListagemProdutoCompostoDTO;
 import com.api.veroneze.service.ProdutoCompostoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,6 +44,13 @@ public class ProdutoCompostoController {
         ProdutoCompostoEntity produto = produtoCompostoService.listarProdutoCompostoId(id);
 
         return new ResponseEntity<>(produto, HttpStatus.OK);
+    }
+
+    @GetMapping("/listar-produtos/{produtoId}")
+    public ResponseEntity<List> getProdutoCompostoByProdutoId(@PathVariable Integer produtoId) {
+        List<ListagemProdutoCompostoDTO> produtos = produtoCompostoService.findProdutoCompostoByProdutoId(produtoId);
+
+        return new ResponseEntity<>(produtos, HttpStatus.OK);
     }
 
     @DeleteMapping("/deletar/{id}")
