@@ -1,0 +1,91 @@
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image:url("../../assets/images/background.png");
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+    color: #fff;
+    font-family: Arial, sans-serif;
+  }
+
+
+  .container {
+    text-align: center;
+    animation: fadeIn 2s ease-in-out;
+  }
+
+  .robot {
+    width: 200px;
+    height: auto;
+    margin: 20px auto;
+    animation: pulse 1.5s infinite;
+  }
+
+  h1 {
+    font-size: 24px;
+    margin-top: 10px;
+    animation: textFadeIn 2s ease-in-out;
+  }
+
+
+  .botton-index{
+    padding-top: 10px;
+  }
+
+  .button-home {
+    background-color: transparent;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    padding: 10px 20px;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+  }
+
+  .button-home:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #0d1a26;
+  }
+
+  .transparent-button:active {
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+  /* Animações */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes textFadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
