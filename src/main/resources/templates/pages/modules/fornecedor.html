@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FORNECEDOR</title>
+  <link rel="stylesheet" href="../../assets/css/cadfornecedor.css">
+  
+</head>
+<body class = 'Bodymod'>
+  <div class="container">
+    <header>
+      <img src="../../assets/images/logobot.png" alt="Robô" class="logo">
+      <h1>FORNECEDOR</h1>
+      <a href = "home.html" class ="back-button">← Voltar</a>
+    </header>
+    <div class="main-content">
+      <aside class="sidebar">
+        <button id="buscarforn" class="button">🔍 Buscar</button>
+        <button id="incluirforn" class="button">➕ Incluir</button>
+        <button id="canceloperacao" class="button"  type="" >✖️Limpar</button> 
+        <button id="salvarforn" class="button">💾 Salvar</button>
+        <button id="excluirforn" class="button">🗑 Excluir</button>
+        <button id="relatorioforn" class="button">📋 Relatório</button>
+      </aside>
+      <form class="form">
+
+        <div class="junta">
+          <div class = "separaidnome">
+            <label for="idforn">ID</label>
+            <input type="text" id="idforn" name="idforn">
+          </div>  
+          <div class = "separa">
+            <label for="nomeforn">Nome</label>
+            <input type="text" id="nomeforn" name="nomeforn">
+          </div>
+          
+          <div class="row">
+            <div class = "separa">
+              <label for="cnpj">CNPJ</label>
+              <input type="text" id="cnpj" name="cnpj">
+            </div>
+            <div>
+              <label for="cpf">CPF</label>
+              <input type="text" id="cpf" name="cpf">
+            </div>
+
+            <div>
+                <label for="ie">Incrição Estadual</label>
+                <input type="text" id="ie" name="ie">
+              </div>
+          </div>
+
+
+          
+          <label for="enderecoforn">Endereço</label>
+          <input type="text" id="enderecoforn" name="enderecoforn">
+          
+          <div class="row">
+            <div class="separa">
+              <label for="numend">Numero do Endereço</label>
+              <input type="text" id="numend" name="numend">
+            </div>
+            <div class="separa">
+              <label for="bairro">Bairro</label>
+              <input type="text" id="bairro" name="bairro">
+            </div>
+            <div class="separa">
+              <label for="cidade">cidade</label>
+              <input type="text" id="cidade" name="cidade">
+            </div>
+
+            <div class="separa">
+              <label for="cep">CEP</label>
+              <input type="text" id="cep" name="cep">
+            </div>
+
+
+          </div>
+          
+          <div class="row">
+            <div class="separa">
+              <label for="telefone">Telefone</label>
+              <input type="text" id="telefone" name="telefone">
+            </div>
+            <div class="separa">
+              <label for="email">Email</label>
+              <input type="text" id="email" name="email">
+            </div>
+          </div>
+          
+
+
+          <div class="row">
+            <div class = "UF">
+              <label for="uf">UF</label>
+              <br>
+              <select id="uf" name="uf">
+                <option value="">Selecione</option>
+                <option value="AC">Acre (AC)</option>
+                <option value="AL">Alagoas (AL)</option>
+                <option value="AP">Amapá (AP)</option>
+                <option value="AM">Amazonas (AM)</option>
+                <option value="BA">Bahia (BA)</option>
+                <option value="CE">Ceará (CE)</option>
+                <option value="DF">Distrito Federal (DF)</option>
+                <option value="ES">Espírito Santo (ES)</option>
+                <option value="GO">Goiás (GO)</option>
+                <option value="MA">Maranhão (MA)</option>
+                <option value="MT">Mato Grosso (MT)</option>
+                <option value="MS">Mato Grosso do Sul (MS)</option>
+                <option value="MG">Minas Gerais (MG)</option>
+                <option value="PA">Pará (PA)</option>
+                <option value="PB">Paraíba (PB)</option>
+                <option value="PR">Paraná (PR)</option>
+                <option value="PE">Pernambuco (PE)</option>
+                <option value="PI">Piauí (PI)</option>
+                <option value="RJ">Rio de Janeiro (RJ)</option>
+                <option value="RN">Rio Grande do Norte (RN)</option>
+                <option value="RS">Rio Grande do Sul (RS)</option>
+                <option value="RO">Rondônia (RO)</option>
+                <option value="RR">Roraima (RR)</option>
+                <option value="SC">Santa Catarina (SC)</option>
+                <option value="SP">São Paulo (SP)</option>
+                <option value="SE">Sergipe (SE)</option>
+                <option value="TO">Tocantins (TO)</option>
+              </select>
+            </div>       
+          </div>
+        </div>
+      </form>
+      <div class="outras-infomacoes" id = "idoutras-infomacoes">
+        <div class="titleouterinfo">
+          <h3> Outras Informações</h3>
+        </div> 
+
+          <form class="form-outer-infor">
+              <label for="add_date_forn">Criação do Fornecedor</label>
+              <input type="text" id="add_date_forn" class="add_date_forn" name="add_date_forn" disabled>
+                <br>
+              <label for="atuali_forn">Atualização do Registro</label>
+              <input type="text" id="atuali_forn" class="atuali_forn" name="atuali_forn" disabled>
+
+          </form>
+          <form class="radio-form">
+              <input  value="FISICA" name="tipopessoa" type="radio" id="a">
+              <label for="a"><span></span>Pessoa Fisica</label>
+             
+              <input value="JURIDICA" name="tipopessoa" type="radio" id="b">
+              <label for="b"><span></span>Pessoa Juridica</label>
+          
+          </form>
+
+          <br>
+
+
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+  <script src="../../assets/js/cadfornecedor.js"></script>
+</body>
+</html>

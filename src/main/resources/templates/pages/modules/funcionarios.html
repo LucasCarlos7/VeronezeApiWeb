@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Funcionarios</title>
+  <link rel="stylesheet" href="../../assets/css/cadfunc.css">
+
+</head>
+
+<body class='Bodymod'>
+  <div class="container">
+    <header>
+      <img src="../../assets/images/logobot.png" alt="Robô" class="logo">
+      <h1>FUNCIONARIOS</h1>
+      <a href="home.html" class="back-button">← Voltar</a>
+    </header>
+    <div class="main-content">
+      <aside class="sidebar">
+        <button id="buscar" class="button">🔍 Buscar</button>
+        <button id="incluir" class="button">➕ Incluir</button>
+        <button id="canceloperacao" class="button" type="">✖️Limpar</button>
+        <button id="salvar" class="button">💾 Salvar</button>
+        <button id="excluir" class="button">🗑 Excluir</button>
+      </aside>
+      <form class="form">
+
+        <div class="junta">
+
+          <div class="row">
+            <div>
+              <label for="id">ID</label>
+              <input type="text" id="id" name="id">
+            </div>
+
+
+            <div>
+              <label for="login">Login</label>
+              <input type="text" id="login" name="login">
+            </div>
+
+            <div>
+              <label for="senha">Senha</label>
+              <input type="password" id="senha" name="senha">
+            </div>
+
+
+          </div>
+
+
+
+          <div class="separa">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome">
+          </div>
+
+          <div class="row">
+
+            <div class="separa">
+              <label for="cpf">CPF</label>
+              <input type="text" id="cpf" name="cpf">
+            </div>
+
+          </div>
+
+
+          <label for="endereco">Endereço</label>
+          <input type="text" id="endereco" name="endereco">
+
+          <div class="row">
+            <div class="separa">
+              <label for="numend">Numero do Endereço</label>
+              <input type="text" id="numend" name="numend">
+            </div>
+            <div class="separa">
+              <label for="bairro">Bairro</label>
+              <input type="text" id="bairro" name="bairro">
+            </div>
+            <div class="separa">
+              <label for="cidade">cidade</label>
+              <input type="text" id="cidade" name="cidade">
+            </div>
+
+            <div class="separa">
+              <label for="cep">CEP</label>
+              <input type="text" id="cep" name="cep">
+            </div>
+
+
+          </div>
+
+          <div class="row">
+            <div class="separa">
+              <label for="telefone">Telefone</label>
+              <input type="text" id="telefone" name="telefone">
+            </div>
+            <div class="separa">
+              <label for="email">Email</label>
+              <input type="text" id="email" name="email">
+            </div>
+          </div>
+
+
+
+          <div class="row">
+            <div class="UF">
+              <label for="uf">UF</label>
+              <br>
+              <select id="uf" name="uf">
+                <option value="">Selecione</option>
+                <option value="AC">Acre (AC)</option>
+                <option value="AL">Alagoas (AL)</option>
+                <option value="AP">Amapá (AP)</option>
+                <option value="AM">Amazonas (AM)</option>
+                <option value="BA">Bahia (BA)</option>
+                <option value="CE">Ceará (CE)</option>
+                <option value="DF">Distrito Federal (DF)</option>
+                <option value="ES">Espírito Santo (ES)</option>
+                <option value="GO">Goiás (GO)</option>
+                <option value="MA">Maranhão (MA)</option>
+                <option value="MT">Mato Grosso (MT)</option>
+                <option value="MS">Mato Grosso do Sul (MS)</option>
+                <option value="MG">Minas Gerais (MG)</option>
+                <option value="PA">Pará (PA)</option>
+                <option value="PB">Paraíba (PB)</option>
+                <option value="PR">Paraná (PR)</option>
+                <option value="PE">Pernambuco (PE)</option>
+                <option value="PI">Piauí (PI)</option>
+                <option value="RJ">Rio de Janeiro (RJ)</option>
+                <option value="RN">Rio Grande do Norte (RN)</option>
+                <option value="RS">Rio Grande do Sul (RS)</option>
+                <option value="RO">Rondônia (RO)</option>
+                <option value="RR">Roraima (RR)</option>
+                <option value="SC">Santa Catarina (SC)</option>
+                <option value="SP">São Paulo (SP)</option>
+                <option value="SE">Sergipe (SE)</option>
+                <option value="TO">Tocantins (TO)</option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+      </form>
+      <div class="outras-infomacoes" id="idoutras-infomacoes">
+        <div class="titleouterinfo">
+          <h3> Outras Informações</h3>
+        </div>
+
+        <form class="form-outer-infor">
+          <label for="add_date">Criação do Funcionario</label>
+          <input type="text" id="add_date" class="add_date" name="add_date" disabled>
+          <br>
+          <label for="atuali">Atualização do Registro</label>
+          <input type="text" id="atuali" class="atuali" name="atuali" disabled>
+
+        </form>
+        <h3>Cargo Funcionario</h3>
+        <form class="radio-form">
+          <input value="VENDEDOR" name="cargo" type="radio" id="a">
+          <label for="a"><span></span>VENDEDOR</label>
+
+          <input value="ADMINISTRATIVO" name="cargo" type="radio" id="b">
+          <label for="b"><span></span>ADMINISTRATIVO</label>
+
+          <input value="GERENTE" name="cargo" type="radio" id="c">
+          <label for="c"><span></span>GERENTE</label>
+
+          <input value="DIRETORIA" name="cargo" type="radio" id="d">
+          <label for="d"><span></span>DIRETORIA</label>
+
+        </form>
+
+      </div>
+
+
+    </div>
+
+  </div>
+  </div>
+  <script src="../../assets/js/cadfunc.js"></script>
+</body>
+
+</html>

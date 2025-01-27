@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabela com API</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f4f4f4;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tabela de Dados</h1>
+  <table id="minhaTabela">
+    <thead>
+      <tr>
+        <th>ID LOCAL DE ESTOQUE</th>
+        <th>DESCRIÇÃO</th>
+        <th>SALDO</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- As linhas serão adicionadas aqui -->
+    </tbody>
+  </table>
+
+  <button onclick="estoqueproduto()">Carregar Dados</button>
+
+  <script>
+    // Função para buscar dados da API e adicionar linhas na tabela
+    async function estoqueproduto() {
+      const apiUrl = 'http://127.0.0.1:8080/estoque/saldo-produto/1'; // Exemplo de API pública
+      
+      try {
+        // Fazendo a requisição para a API
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        // Verificando se os dados retornados são um array
+        if (Array.isArray(data)) {
+          adicionarLinhas(data);
+        } else {
+          console.error('Os dados retornados não estão no formato esperado:', data);
+        }
+      } catch (error) {
+        console.error('Erro ao buscar dados da API:', error);
+      }
+    }
+
+    // Função para adicionar linhas na tabela
+    function adicionarLinhas(data) {
+      const tabela = document.getElementById('minhaTabela').querySelector('tbody');
+
+      // Itera sobre os dados retornados pela API
+      data.forEach(item => {
+        const row = document.createElement('tr');
+
+        // Adicionando valores nas células (ajustando para os campos retornados pela API)
+        const idCell = document.createElement('td');
+        idCell.textContent = item.localEstoqueId || '-'; // ID ou '-' caso não exista
+        row.appendChild(idCell);
+
+        const nomeCell = document.createElement('td');
+        nomeCell.textContent = item.descricao || '-'; // Nome ou '-' caso não exista
+        row.appendChild(nomeCell);
+
+        const idadeCell = document.createElement('td');
+        idadeCell.textContent = item.saldoTotal || 'N/A'; // Idade fictícia (se a API não retornar)
+        row.appendChild(idadeCell);
+
+        // Adicionando a linha ao corpo da tabela
+        tabela.appendChild(row);
+      });
+    }
+  </script>
+</body>
+</html>
