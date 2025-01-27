@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produção</title>
+  <link rel="stylesheet" href="../../assets/css/producao.css">
+
+</head>
+
+<body class='Bodymod'>
+  <div class="container">
+    <header>
+      <img src="../../assets/images/logobot.png" alt="Robô" class="logo">
+      <h1>PRODUÇÃO</h1>
+      <a href="home.html" class="back-button">← Voltar</a>
+    </header>
+    <div class="main-content">
+      <aside class="sidebar">
+        <button id="buscar" class="button">🔍 Buscar</button>
+        <button id="incluir" class="button">➕ Incluir</button>
+        <button id="canceloperacao" class="button" type="">✖️Limpar</button>
+        <button id="salvar" class="button">💾 Salvar</button>
+        <button id="excluir" class="button">🗑 Excluir</button>
+
+      </aside>
+      <form class="form">
+
+        <div>
+          <label for="id">ID</label>
+          <input type="text" id="id" name="id">
+        </div>
+        <div class="row">
+          <div>
+            <label for="prodid">PRODUTO ID</label>
+            <input type="text" id="prodid" name="prodid">
+          </div>
+          <div>
+            <label for="nomeprod">NOME PRODUTO</label>
+            <input type="text" id="nomeprod" name="nomeprod">
+          </div>
+        </div>
+
+
+
+        <div class="row">
+          <div>
+            <label for="prodcomp">PRODUTO COMPOSTO ID</label>
+            <input type="text" id="prodcomp" name="prodcomp">
+          </div>
+          <div>
+            <label for="nomeprodcomp">NOME DO PRODUTO COMPOSTO</label>
+            <input type="text" id="nomeprodcomp" name="nomeprodcomp">
+          </div>
+        </div>
+
+        <div>
+          <label for="prop">PROPORÇÃO</label>
+          <input type="text" id="prop" name="prop">
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+  </div>
+  <script src="../../assets/js/producao.js"></script>
+</body>
+
+</html>

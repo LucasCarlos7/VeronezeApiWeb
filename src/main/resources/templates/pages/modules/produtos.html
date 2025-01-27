@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produto</title>
+  <link rel="stylesheet" href="../../assets/css/cadprod.css">
+
+</head>
+
+<body>
+  <div class="separamod">
+    <div class="containerprod show" id="containerprod">
+      <header>
+        <img src="../../assets/images/logobot.png" alt="Robô" class="logo">
+        <h1>PRODUTO</h1>
+        <a href="home.html" class="back-button">← Voltar</a>
+      </header>
+      <div class="main-content">
+        <aside class="sidebar">
+
+
+
+          <button id="buscarprod" class="button" event="">🔍 Buscar</button>
+
+          <button id="incluirprod" class="button" type="">➕ Incluir</button>
+          <button id="canceloperacao" class="button" type="">✖️Limpar</button>
+
+          <button id="salvarprod" class="button">💾 Salvar</button>
+          <button id="excluirprod" class="button">🗑 Excluir</button>
+        </aside>
+
+
+        <div class="conteudo">
+          <form class="form" id='formprod'>
+            <label for="idprod">ID</label>
+            <input type="text" id="idprod" name="id">
+
+            <label for="nomeprod">Nome</label>
+            <input type="text" id="nomeprod" name="nome">
+
+            <label for="precoprod">Preço</label>
+            <input type="text" id="precoprod" name="preco">
+
+          </form>
+
+
+
+
+          <table id="saldoestoque" class="saldoestoque">
+            <thead>
+              <tr>
+                <th>ID LOCAL DE ESTOQUE</th>
+                <th>DESCRIÇÃO</th>
+                <th>SALDO</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- As linhas serão adicionadas aqui -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="outras-infomacoes" id="idoutras-infomacoes">
+          <div class="aba-buttons">
+            <button class="aba-btn" content-id="idinformacoes">Informações</button>
+            <button class="aba-btn" content-id="idcompostokit">Composto / Kit</button>
+          </div>
+
+          <div class="content-informacoes">
+            <div class="contentprod show" id="idinformacoes">
+              <div class="content-outer-infor">
+                <form class="form-outer-infor">
+                  <label for="add_date_prod">Criação do produto</label>
+                  <input type="text" id="add_date_prod" class="add_date_prod" name="add_date_prod" disabled>
+                  <br>
+                  <label for="atuali_prod">Atualização do Registro</label>
+                  <input type="text" id="atuali_prod" class="atuali_prod" name="atuali_prod" disabled>
+
+                </form>
+
+
+
+                <form class="radio-form">
+                  <input value="MATÉRIA_PRIMA" name="tipoprod" type="radio" id="a">
+                  <label for="a"><span></span>Matéria Prima</label>
+
+                  <input value="PRODUTO_EM_PROCESSO" name="tipoprod" type="radio" id="b">
+                  <label for="b"><span></span>Produto em Processo</label>
+
+                  <input value="PRODUTO_ACABADO" name="tipoprod" type="radio" id="c">
+                  <label for="c"><span></span>Produto Acabado</label>
+
+                  <input value="OUTROS" name="tipoprod" type="radio" id="d">
+                  <label for="d"><span></span>Outros</label>
+
+                </form>
+
+              </div>
+            </div>
+
+
+            <div class="contentprod" id="idcompostokit">
+
+              <div class="compostokit">
+                <table id="table_comp_kit">
+                  <thead>
+                    <tr>
+
+                      <th>ID</th>
+                      <th>NOME</th>
+                      <th>PROPORÇÃO</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- As linhas serão adicionadas aqui -->
+                  </tbody>
+                </table>
+
+
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+
+
+  </div>
+
+  <script src="../../assets/js/cadproduto.js"></script>
+</body>
+
+</html>

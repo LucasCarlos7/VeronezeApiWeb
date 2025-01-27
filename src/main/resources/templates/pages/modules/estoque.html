@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOCAL DE ESTOQUE</title>
+  <link rel="stylesheet" href="../../assets/css/cadestoque.css">
+  
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="../../assets/images/logobot.png" alt="Robô" class="logo">
+      <h1>LOCAL DE ESTOQUE</h1>
+      <a href = "home.html" class ="back-button">← Voltar</a>
+    </header>
+    <div class="main-content">
+      <aside class="sidebar">
+        <button id="buscar" class="button" event="">🔍 Buscar</button>
+        
+        <button id="incluir" class="button"  type="" >➕ Incluir</button>
+        <button id="canceloperacao" class="button"  type="" >✖️Limpar</button>  
+
+        <button id="salvar" class="button">💾 Salvar</button>
+        <button id="excluir" class="button">🗑 Excluir</button>
+        <a href = "home.html" class ="button">📋 Relatório</a>
+      </aside>
+
+      <form class="form" id = 'formprod'>
+        <label for="id">ID</label>
+        <input type="text" id="id" name="id">
+        
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome">
+        
+      </form>
+
+
+      <div class="outras-infomacoes" id = "idoutras-infomacoes">
+        <div >
+            <h3>Outras informações</h3>
+        </div> 
+
+        <div class="content-informacoes">
+          
+            <div class = "content-outer-infor">
+             <form class="form-outer-infor">
+              <label for="add_date">Criação do Registro</label>
+              <input type="text" id="add_date" class="add_date" name="add_date" disabled>
+          <br>
+              <label for="atuali">Atualização do Registro</label>
+              <input type="text" id="atuali" class="atuali" name="atuali" disabled>
+
+             </form>
+
+            </div>
+          </div>
+          
+          
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+  <script src="../../assets/js/cadestoque.js"></script>
+</body>
+</html>
