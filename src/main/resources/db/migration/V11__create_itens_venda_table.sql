@@ -8,6 +8,7 @@ CREATE TABLE itens_venda (
     valor_total_produto DOUBLE,
     status_produto_venda INT NOT NULL,
     data_atualizacao DATE,
+    operacao INT NOT NULL,
     PRIMARY KEY (venda_id, item),
     CONSTRAINT fk_venda_itens_venda_id FOREIGN KEY (venda_id)
         REFERENCES venda (id) ON DELETE CASCADE,
