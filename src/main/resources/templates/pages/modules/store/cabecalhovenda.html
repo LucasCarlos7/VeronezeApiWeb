@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Venda</title>
+  <link rel="stylesheet" href="../../../assets/css/store/cabecalhovenda.css">
+  
+</head>
+<body class = 'Bodymod'>
+  <div class="container">
+    <header>
+      <img src="../../../assets/images/logobot.png" alt="Robô" class="logo">
+      <h1>Cabeçalho da Venda</h1>
+      <a href = "../home.html" class ="back-button">← Voltar</a>
+    </header>
+    <div class="main-content">
+      <aside class="sidebar">
+        <button id="confirmar" class="button">🔍 Confirmar</button>
+        <button id="canceloperacao" class="button"  type="" >✖️Limpar</button> 
+        <button id="mudarpagina" class="button"  type="" >Ir para Balcão</button> 
+      </aside>
+      <form class="form">
+
+          <div class="row">
+            <div>
+              <label for="idcliente">ID do CLiente</label>
+              <input type="text" id="idcliente" name="idcliente" >
+            </div>
+            <div>
+              <label for="nomecliente">Nome do Cliente</label>
+              <input type="text" id="nomecliente" name="nomecliente" readonly>
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="idlocalestoque">ID Local de Estoque</label>
+              <input type="text" id="idlocalestoque" name="idlocalestoque">
+            </div>
+            <div>
+              <label for="nomelocalestoque">Local de Estoque</label>
+              <input type="text" id="nomelocalestoque" name="nomelocalestoque" readonly>
+            </div>
+          </div>
+          
+          <div>
+            <label for="desc">Desconto Inicial</label>
+            <input type="text" id="desc" name="desc">
+          </div>
+
+      </form>
+    </div>
+
+  </div>
+</div>
+  <script src="../../../assets/js/store/cabecalhovenda.js"></script>
+</body>
+</html>
