@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ENTRADAS</title>
+  <link rel="stylesheet" href="../../assets/css/entradas.css">
+
+</head>
+
+<body class='Bodymod'>
+  <div class="container">
+    <header>
+      <img src="../../assets/images/logobot.png" alt="Robô" class="logo">
+      <h1>ENTRADAS</h1>
+      <a href="home.html" class="back-button">← Voltar</a>
+    </header>
+    <div class="main-content">
+      <aside class="sidebar">
+        <button id="buscar" class="button">🔍 Buscar</button>
+        <button id="incluir" class="button">➕ Incluir</button>
+        <button id="canceloperacao" class="button" type="">✖️Limpar</button>
+        <button id="salvar" class="button">💾 Salvar</button>
+
+        <button id="relatorio" class="button">📋 Relatório</button>
+      </aside>
+      <form class="form">
+
+        <div class="junta">
+
+          <div class="row">
+            <div>
+              <label for="id">ID</label>
+              <input type="text" id="id" name="id">
+            </div>
+
+
+            <div>
+              <label for="local_estoque_entrada">Local de Estoque Entrada</label>
+              <input type="text" id="local_estoque_entrada" name="local_estoque_entrada">
+            </div>
+
+            <div>
+              <label for="local_estoque_Saida">Local de Estoque Saída</label>
+              <input type="text" id="local_estoque_Saida" name="local_estoque_Saida">
+            </div>
+
+
+          </div>
+
+          <div class="row">
+
+            <div class="separa">
+              <label for="idfornecedor">ID Do Fornecedor</label>
+              <input type="text" id="idfornecedor" name="idfornecedor">
+            </div>
+
+            <div class="separa">
+              <label for="nomefornecedor">Nome Fornecedor</label>
+              <input type="text" id="nomefornecedor" name="nomefornecedor">
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="separa">
+
+              <label for="valoroperacao">Valor da Operação</label>
+              <input type="text" id="valoroperacao" name="valoroperacao">
+
+            </div>
+          </div>
+          <div class="separa">
+
+            <h3>PRODUTOS</h3>
+
+            <table id="tabelaMovimento">
+              <thead>
+                <tr>
+                  <th>ITEM</th>
+                  <th>Produto ID</th>
+                  <th>Movimento Estoque ID</th>
+                  <th>Quantidade</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Linhas serão adicionadas dinamicamente -->
+              </tbody>
+            </table>
+
+            <button id="btnAdicionar" class="button">Adicionar Linha</button>
+            <button id="btnConfirmar" disabled>Confirmar Post</button>
+            <button id="btnCancelar" class="button" disabled>Canc
+
+          </div>
+
+        </div>
+      </form>
+
+
+      <div class="outras-infomacoes" id="idoutras-infomacoes">
+        <div class="tituloradio">
+          <h3>Status da Operação</h3>
+        </div>
+        <form class="radio-form-status">
+
+          <input value="INICIADO" name="statusoperacao" type="radio" id="a">
+          <label for="a"><span></span>ABERTO</label>
+
+          <input value="CONCLUIDO" name="statusoperacao" type="radio" id="b">
+          <label for="b"><span></span>FECHADO</label>
+
+        </form>
+
+        <div class="tituloradio">
+          <h3>Tipo da Operação</h3>
+        </div>
+        <form class="radio-form-tipo">
+
+          <input value="ENTRADA" name="tipooperacao" type="radio" id="c">
+          <label for="c"><span></span>ENTRADA</label>
+
+          <input value="SAIDA" name="tipooperacao" type="radio" id="d">
+          <label for="d"><span></span>SAIDA</label>
+
+          <input value="TRANSFERENCIA" name="tipooperacao" type="radio" id="e">
+          <label for="e"><span></span>TRANSFERENCIA</label>
+
+        </form>
+        <br>
+
+
+
+        <form class="form-outer-infor">
+          <label for="add_date">Data Operação</label>
+          <input type="text" id="add_date" class="add_date" name="add_date" disabled>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+  </div>
+  <script src="../../assets/js/entradas.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VENDAS</title>
+  <link rel="stylesheet" href="../../../assets/css/store/balcao.css">
+
+</head>
+
+<body class='Bodymod'>
+  <div class="container">
+    <header>
+      <img src="../../../assets/images/logobot.png" alt="Robô" class="logo">
+      <h1>BALCÃO</h1>
+      <a href="cabecalhovenda.html" class="back-button">← Voltar</a>
+
+    </header>
+    <div class="main-content">
+
+      <form class="form">
+
+        <div class="junta">
+          <div class="row">
+            <div class="separaidnome">
+              <label for="idVenda">Numero do Pedido</label> <br>
+              <input type="text" id="idVenda" name="idVenda" disabled>
+            </div>
+            <div class="separa">
+              <label for="nomeCliente">Nome Cliente</label><br>
+              <input type="text" id="nomeCliente" name="nomecli" disabled>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="separa">
+              <label for="cpfCnpj">CPF/CNPJ</label>
+              <input type="text" id="cpfCnpj" name="cpfCnpj" disabled>
+            </div>
+            <div>
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="separa">
+              <label for="precoini">Valor Bruto</label>
+              <input type="text" id="precoini" name="precoini" disabled>
+            </div>
+            <div class="separa">
+              <label for="desconto">Desconto</label>
+              <input type="text" id="desconto" name="desconto" disabled>
+            </div>
+            <div class="separa">
+              <label for="precofinal">Valor Liquido</label>
+              <input type="text" id="precofinal" name="precofinal" disabled>
+            </div>
+
+
+
+
+
+          </div>
+
+
+          <div class="separa">
+
+            <h3>PRODUTOS</h3>
+
+            <table id="tabelaMovimento">
+              <thead>
+                <tr>
+                  <th>ITEM</th>
+                  <th>ID</th>
+                  <th>Quant</th>
+                  <th>Valor Uni.</th>
+                  <th>Valor total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Linhas serão adicionadas dinamicamente -->
+              </tbody>
+            </table>
+
+            <button id="btnAdicionar" class="button">Adicionar Linha</button>
+            <button id="btnConfirmar" disabled>Confirmar Post</button>
+            <button id="btnCancelar" class="button" disabled>Canc
+
+          </div>
+
+        </div>
+      </form>
+      <div class="outras-infomacoes" id="idoutras-infomacoes">
+        <h3><strong>Status:</strong> <span id="statusVenda"></span></h3>
+        <h3><strong>Data da Venda:</strong><br><span id="dataVenda"></span></h3>
+        <button id="statusvenda" class="button">Finalizar/Cancelar</button>
+      </div>
+    </div>
+  </div>
+  </div>
+  <script src="../../../assets/js/store/balcao.js"></script>
+</body>
+
+</html>
