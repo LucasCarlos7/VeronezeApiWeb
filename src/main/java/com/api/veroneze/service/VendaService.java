@@ -122,7 +122,11 @@ public class VendaService {
         List<ItensVendaEntity> itensVenda = itensVendaService.findByVendaId(vendaId);
 
         // Calcula o total do orçamento inicial somando os valores totais dos produtos com status ativo
-        Double totalOrcamentoInicial = itensVenda.stream().filter(item -> item.getStatusProdutoVenda() == StatusProdutoVendaEnum.ATIVO) // Filtra somente itens ativos
+        Double totalOrcamentoInicial = itensVenda.stream().filter
+        (
+            item -> item.getStatusProdutoVenda() == StatusProdutoVendaEnum.ATIVO &&
+            item.getOperacao() == OperacaoEnum.SAIDA
+        ) // Filtra somente itens ativos
                 .mapToDouble(ItensVendaEntity::getValorTotalProduto).sum();
 
         // Busca a venda correpondente pelo ID

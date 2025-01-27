@@ -52,11 +52,13 @@ public class ItensVendaService {
         novoItemVenda.setValorTotalProduto(getValorTotalProduto(itensVendaRequestDTO));
         novoItemVenda.setDataAtualizacao(new Date());
         novoItemVenda.setStatusProdutoVenda(StatusProdutoVendaEnum.ATIVO);
+        novoItemVenda.setOperacao(OperacaoEnum.SAIDA);
 
         // Salva o novoItemVenda na Venda
         itensVendaRepository.save(novoItemVenda);
 
-        // Percorre todos os ProdutosCompostos do ProdutoEntity e insere na venda com a Operação = SAIDA_COMPOSTO
+        // Percorre todos os ProdutosCompostos do ProdutoEntity e insere na venda com a
+        // Operação = SAIDA_COMPOSTO
         for (ProdutoCompostoEntity produtos : produtosCompostos) {
             ItensVendaEntity itensVendaComposto = new ItensVendaEntity();
             ProdutoEntity produtoComposto = produtoService.listarProdutoId(produtos.getProdutoCompostoId());
@@ -69,6 +71,7 @@ public class ItensVendaService {
             itensVendaComposto.setQuantidade(itensVendaRequestDTO.quantidade() * produtos.getProporcao());
             itensVendaComposto.setValorTotalProduto(produtoComposto.getPreco() * itensVendaComposto.getQuantidade());
             itensVendaComposto.setStatusProdutoVenda(StatusProdutoVendaEnum.ATIVO);
+            itensVendaComposto.setOperacao(OperacaoEnum.SAIDA_COMPOSTO);
 
             itensVendaRepository.save(itensVendaComposto);
         }
@@ -120,7 +123,8 @@ public class ItensVendaService {
     public ItensVendaEntity listarItemVendaId(Integer vendaId, Integer itemId) {
         // Lista o item da venda filtrado pelos parametros vendaId e itemId
         ItensVendaEntity itemVenda = itensVendaRepository.findByVendaIdAndItem(vendaId, itemId)
-                .orElseThrow(() -> new RuntimeException("Item " + itemId + " da venda COD: " + vendaId + " não encontrado."));
+                .orElseThrow(() -> new RuntimeException(
+                        "Item " + itemId + " da venda COD: " + vendaId + " não encontrado."));
 
         return itemVenda;
     }

@@ -28,6 +28,7 @@ public class ItensVendaEntity {
     private Double valorUnitarioProduto;
     private Double valorTotalProduto;
     private Integer statusProdutoVenda;
+    private Integer operacao;
 
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -35,13 +36,12 @@ public class ItensVendaEntity {
 
     // Construtor
 
-
     public ItensVendaEntity() {
     }
 
     public ItensVendaEntity(Integer vendaId, Integer item, Integer produtoId, String nomeProduto, Double quantidade,
-                            Double valorUnitarioProduto, Double valorTotalProduto, Date dataAtualizacao,
-                            StatusProdutoVendaEnum statusProdutoVenda) {
+            Double valorUnitarioProduto, Double valorTotalProduto, Date dataAtualizacao,
+            StatusProdutoVendaEnum statusProdutoVenda, OperacaoEnum operacao) {
         this.vendaId = vendaId;
         this.item = item;
         this.produtoId = produtoId;
@@ -51,9 +51,10 @@ public class ItensVendaEntity {
         this.valorTotalProduto = valorTotalProduto;
         this.dataAtualizacao = dataAtualizacao;
         setStatusProdutoVenda(statusProdutoVenda);
+        setOperacao(operacao);
     }
 
-    //Getter e Setters
+    // Getter e Setters
 
     public Integer getVendaId() {
         return vendaId;
@@ -126,6 +127,16 @@ public class ItensVendaEntity {
     public void setStatusProdutoVenda(StatusProdutoVendaEnum statusProdutoVenda) {
         if (statusProdutoVenda != null) {
             this.statusProdutoVenda = statusProdutoVenda.getCode();
+        }
+    }
+
+    public OperacaoEnum getOperacao() {
+        return OperacaoEnum.valueOf(operacao);
+    }
+
+    public void setOperacao(OperacaoEnum operacao) {
+        if (operacao != null) {
+            this.operacao = operacao.getCode();
         }
     }
 }
